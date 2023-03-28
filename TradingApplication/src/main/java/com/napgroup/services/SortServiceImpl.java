@@ -2,16 +2,21 @@ package com.napgroup.services;
 
 import java.util.Optional;
 
+import com.napgroup.models.OrderBook;
+import com.napgroup.models.OrderTable;
+import com.napgroup.models.SaleType;
+import com.napgroup.models.Sort;
+
 public class SortServiceImpl implements SortService {
 
 	private Sort sort;
 	
 	@Override
-	public Optional<Order> findAsk(Order bid) {
-		Order ask = null;
+	public Optional<OrderTable> findAsk(OrderTable bid) {
+		OrderTable ask = null;
 		Region region = bid.getRegion();
 		List<OrderBook> orderBook = sort.getOrderBooks().get(region);
-		for(Order other: orderBook) {
+		for(OrderTable other: orderBook) {
 			if(other.getSaleType() == SaleType.ASK) {
 				if(bid.getSalePrice() <= other.getSalePrice()) {
 					ask = other;
@@ -23,11 +28,11 @@ public class SortServiceImpl implements SortService {
 	}
 
 	@Override
-	public Optional<Order> findBid(Order ask) {
-		Order bid = null;
+	public Optional<OrderTable> findBid(OrderTable ask) {
+		OrderTable bid = null;
 		Region region = ask.getRegion();
 		List<OrderBook> orderBook = sort.getOrderBooks().get(region);
-		for(Order other: orderBook) {
+		for(OrderTable other: orderBook) {
 			if(other.getSaleType() == SaleType.BID) {
 				if(ask.getSalePrice() <= other.getSalePrice()) {
 					bid = other;
@@ -39,7 +44,7 @@ public class SortServiceImpl implements SortService {
 	}
 
 	@Override
-	public int executeTrade(Order ask, Order bid) {
+	public int executeTrade(OrderTable ask, OrderTable bid) {
 		if(ask.getStockAmount() == bid.getStockAmount() ) {
 			// set orders to filled
 			// transfer stocks between users

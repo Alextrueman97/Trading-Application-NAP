@@ -2,10 +2,12 @@ package com.napgroup.services;
 
 import java.util.Optional;
 
+import com.napgroup.models.OrderTable;
+
 public interface SortService {
 	
-	public Optional<Order> findAsk(Order order);
-	public Optional<Order> findBid(Order order);
-	public int executeTrade(Order ask, Order bid);
+	public Optional<OrderTable> findAsk(OrderTable order);
+	public Optional<OrderTable> findBid(OrderTable order);
+	public int executeTrade(OrderTable ask, OrderTable bid);
 
 }

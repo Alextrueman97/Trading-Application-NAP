@@ -2,6 +2,8 @@ package com.napgroup.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,8 +22,8 @@ public class Stocks {
 	private Company companyId;
 	@Column(name = "stock_price")
 	private double stockPrice;
-	@Column(name = "region", columnDefinition = "VARCHAR(25)")
-	private String region;
+	@Enumerated(EnumType.STRING)
+	private Region region;
 	@Column(name = "stock_amount")
 	private int stockAmount;
 	
@@ -29,7 +31,7 @@ public class Stocks {
 		super();
 	}
 
-	public Stocks(double stockPrice, String region, int stockAmount) {
+	public Stocks(double stockPrice, Region region, int stockAmount) {
 		super();
 		this.stockPrice = stockPrice;
 		this.region = region;
@@ -60,11 +62,11 @@ public class Stocks {
 		this.stockPrice = stockPrice;
 	}
 
-	public String getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public void setRegion(String region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 

@@ -1,19 +1,21 @@
 package com.napgroup.models;
 
+import java.util.List;
+
 public class OrderBook {
 	
-	private List<Order> orders;
+	private List<OrderTable> orders;
 
-	public OrderBook(List<Order> orders) {
+	public OrderBook(List<OrderTable> orders) {
 		super();
 		this.orders = orders;
 	}
 
-	public List<Order> getOrders() {
+	public List<OrderTable> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<Order> orders) {
+	public void setOrders(List<OrderTable> orders) {
 		this.orders = orders;
 	}
 

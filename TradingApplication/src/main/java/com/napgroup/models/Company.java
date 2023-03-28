@@ -1,10 +1,13 @@
 package com.napgroup.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,16 +22,21 @@ public class Company {
 	private String companySymbol;
 	@Column(name = "company_name", columnDefinition = "VARCHAR(30)")
 	private String companyName;
-
+	@OneToMany(mappedBy = "companyId")
+	private List<Stocks> stocks;
+	
 	public Company() {
 		super();
 	}
 
-	public Company(String companySymbol, String companyName) {
+	public Company(String companySymbol, String companyName, List<Stocks> stocks) {
 		super();
 		this.companySymbol = companySymbol;
 		this.companyName = companyName;
+		this.stocks = stocks;
 	}
+
+
 
 	public int getCompanyId() {
 		return companyId;
@@ -52,6 +60,14 @@ public class Company {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+	
+	public List<Stocks> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(List<Stocks> stocks) {
+		this.stocks = stocks;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,10 +19,10 @@ public class OrderTable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name  = "oder_id")
+	@Column(name  = "order_id")
 	private int orderId;
-	@JoinColumn(name = "stock_id")
-	private int stockId;
+	@ManyToOne
+	private Stocks stockId;
 	@Column(name = "sale_price")
 	private double salePrice;
 	@Column(name = "stock_amount")
@@ -41,7 +42,7 @@ public class OrderTable {
 	
 	public OrderTable() {}
 	
-	public OrderTable(int orderId, int stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
+	public OrderTable(int orderId, Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
 			SaleType saleType, LocalDateTime saleDate, int sellerId, int buyerId) {
 		super();
 		this.orderId = orderId;
@@ -56,7 +57,7 @@ public class OrderTable {
 		this.buyerId = buyerId;
 	}
 	//constructor without orderId
-	public OrderTable(int stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
+	public OrderTable(Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
 			SaleType saleType, LocalDateTime saleDate, int sellerId, int buyerId) {
 		super();
 		this.stockId = stockId;
@@ -78,11 +79,11 @@ public class OrderTable {
 		this.orderId = orderId;
 	}
 
-	public int getStockId() {
+	public Stocks getStockId() {
 		return stockId;
 	}
 
-	public void setStockId(int stockId) {
+	public void setStockId(Stocks stockId) {
 		this.stockId = stockId;
 	}
 
@@ -149,6 +150,14 @@ public class OrderTable {
 	public void setSaleDate(LocalDateTime saleDate) {
 		this.saleDate = saleDate;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderTable [orderId=" + orderId + ", stockId=" + stockId + ", salePrice=" + salePrice + ", stockAmount="
+				+ stockAmount + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", saleType=" + saleType
+				+ ", saleDate=" + saleDate + ", sellerId=" + sellerId + ", buyerId=" + buyerId + "]";
+	}
+	
 	
 	
 }

@@ -55,7 +55,21 @@ public class OrderTable {
 		this.sellerId = sellerId;
 		this.buyerId = buyerId;
 	}
-
+	//constructor without orderId
+	public OrderTable(int stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
+			SaleType saleType, LocalDateTime saleDate, int sellerId, int buyerId) {
+		super();
+		this.stockId = stockId;
+		this.salePrice = salePrice;
+		this.stockAmount = stockAmount;
+		this.orderStatus = orderStatus;
+		this.orderType = orderType;
+		this.saleType = saleType;
+		this.saleDate = saleDate;
+		this.sellerId = sellerId;
+		this.buyerId = buyerId;
+	}
+	
 	public int getOrderId() {
 		return orderId;
 	}

@@ -19,16 +19,13 @@ public interface OrderTableRepository extends JpaRepository<OrderTable, Integer>
 	@Query(value = "SELECT * FROM order_table ot WHERE ot.account_id = :accountId AND ot.order_status = 'COMPLETE'", nativeQuery = true)
 	public List<OrderTable> findAllFilledOrdersByUserId(int accountId);
 	
-	@Query()
-	public OrderTable addOrder(OrderTable order);
-	
-	@Query()
+	@Query(value = "UPDATE order_table ot SET ot.order_status = :orderStatus WHERE ot.order_id = :orderId", nativeQuery = true)
 	public OrderTable updateOrderStatusById(int orderId, OrderStatus orderStatus);
 	
-	@Query()
-	public OrderTable updateStockAmountById(int orderId, OrderStatus orderStatus);
+	@Query(value = "UPDATE order_table ot SET stock_amount = :stockAmount WHERE ot.order_id = :orderId", nativeQuery = true)
+	public OrderTable updateStockAmountById(int orderId, int stockAmount);
 	
-	@Query()
-	public OrderTable updateStockPriceById(int orderId, OrderStatus orderStatus);
+	@Query(value = "UPDATE order_table ot SET stock_price = :stockPrice WHERE ot.order_id = :orderId", nativeQuery = true)
+	public OrderTable updateStockPriceById(int orderId, double stockPrice);
 	
 }

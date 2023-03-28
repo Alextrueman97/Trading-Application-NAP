@@ -7,12 +7,12 @@ import com.napgroup.models.OrderTable;
 
 public interface OrderService {
 	
-	public List<OrderTable> findAllOrdersByUserId(int accountId);
-	public List<OrderTable> findAllUnfilledOrdersByCompanyAndRegion(int companyId, String region);
-	public List<OrderTable> findAllFilledOrdersByUserId(int userId);
+	public List<OrderTable> findUsersOrders(int accountId);
+	public List<OrderTable> findIncompleteOrders(int companyId, String region);
+	public List<OrderTable> findCompleteOrders(int userId);
 	public OrderTable addOrder(OrderTable order);
-	public OrderTable updateOrderStatusById(int orderId, OrderStatus orderStatus);
-	public OrderTable updateStockAmountById(int orderId, OrderStatus orderStatus);
-	public OrderTable updateStockPriceById(int orderId, OrderStatus orderStatus);
+	public OrderTable updateOrderStatus(int orderId, OrderStatus orderStatus);
+	public OrderTable updateStockAmount(int orderId, int stockAmount);
+	public OrderTable updateStockPrice(int orderId, double stockPrice);
 	
 }

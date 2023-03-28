@@ -12,7 +12,7 @@ public interface OrderService {
 	public List<OrderTable> findAllFilledOrdersByUserId(int userId);
 	public OrderTable addOrder(OrderTable order);
 	public OrderTable updateOrderStatusById(int orderId, OrderStatus orderStatus);
-	public OrderTable updateStockAmountById(int orderId, OrderStatus orderStatus);
-	public OrderTable updateStockPriceById(int orderId, OrderStatus orderStatus);
+	public OrderTable updateStockAmountById(int orderId, int stockAmount);
+	public OrderTable updateStockPriceById(int orderId, double stockPrice);
 	
 }

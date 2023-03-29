@@ -1,7 +1,7 @@
 package com.napgroup.models;
 
 public enum OrderStatus {
-	COMPELTE,
+	COMPLETE,
 	PARTIAL,
 	PENDING;
 	

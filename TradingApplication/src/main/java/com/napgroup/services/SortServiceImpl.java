@@ -1,9 +1,15 @@
 package com.napgroup.services;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.napgroup.models.OrderBook;
+import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTable;
+import com.napgroup.models.OrderType;
+import com.napgroup.models.Region;
 import com.napgroup.models.SaleType;
 import com.napgroup.models.Sort;
 
@@ -11,16 +17,31 @@ public class SortServiceImpl implements SortService {
 
 	private Sort sort;
 	
+	public SortServiceImpl(Sort sort) {
+		this.sort = sort;
+	}
+	
 	@Override
-	public Optional<OrderTable> findAsk(OrderTable bid) {
+	public Optional<OrderTable> findAsk(OrderTable bid, Region region) {
 		OrderTable ask = null;
-		Region region = bid.getRegion();
-		List<OrderBook> orderBook = sort.getOrderBooks().get(region);
-		for(OrderTable other: orderBook) {
-			if(other.getSaleType() == SaleType.ASK) {
-				if(bid.getSalePrice() <= other.getSalePrice()) {
-					ask = other;
-					break;
+		List<OrderTable>  orderBook = sort.getOrderBooks().get(region).getOrders();
+		
+		if(bid.getOrderType() == OrderType.MARKET) {
+			for(OrderTable other: orderBook) {
+				if(other.getSaleType() == SaleType.ASK) {
+					if(bid.getSalePrice() == other.getSalePrice()) {
+						ask = other;
+						break;
+					}
+				}
+			}
+		} else if(bid.getOrderType() == OrderType.LIMIT) {
+			for(OrderTable other: orderBook) {
+				if(other.getSaleType() == SaleType.ASK) {
+					if(bid.getSalePrice() <= other.getSalePrice()) {
+						ask = other;
+						break;
+					}
 				}
 			}
 		}
@@ -28,15 +49,25 @@ public class SortServiceImpl implements SortService {
 	}
 
 	@Override
-	public Optional<OrderTable> findBid(OrderTable ask) {
+	public Optional<OrderTable> findBid(OrderTable ask, Region region) {
 		OrderTable bid = null;
-		Region region = ask.getRegion();
-		List<OrderBook> orderBook = sort.getOrderBooks().get(region);
-		for(OrderTable other: orderBook) {
-			if(other.getSaleType() == SaleType.BID) {
-				if(ask.getSalePrice() <= other.getSalePrice()) {
-					bid = other;
-					break;
+		List<OrderTable>  orderBook = sort.getOrderBooks().get(region).getOrders();
+		if(ask.getOrderType() == OrderType.MARKET) {
+			for(OrderTable other: orderBook) {
+				if(other.getSaleType() == SaleType.BID) {
+					if(ask.getSalePrice() == other.getSalePrice()) {
+						bid = other;
+						break;
+					}
+				}
+			}
+		} else if(ask.getOrderType() == OrderType.LIMIT) {
+			for(OrderTable other: orderBook) {
+				if(other.getSaleType() == SaleType.BID) {
+					if(ask.getSalePrice() >= other.getSalePrice()) {
+						bid = other;
+						break;
+					}
 				}
 			}
 		}
@@ -57,6 +88,7 @@ public class SortServiceImpl implements SortService {
 			// set bid to filled
 			// transfer stocks between users
 		}
+		return 0;
 	}
 
 }

@@ -3,19 +3,32 @@ package com.napgroup.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTable;
 import com.napgroup.repositories.OrderTableRepository;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired OrderTableRepository orderTableRepository;
 	
+	//@Override
+	//public List<OrderTable> findUsersOrders(int accountId){
+		//return orderTableRepository.findAllOrdersByUserId(accountId);
+	//}
+	
 	@Override
-	public List<OrderTable> findUsersOrders(int accountId){
-		return orderTableRepository.findAllOrdersByUserId(accountId);
+	public List<OrderTable> findAskOrdersById(int accountId){
+		return orderTableRepository.findAskOrdersById(accountId);
 	}
+	
+	@Override
+	public List<OrderTable> findBidOrdersById(int accountId){
+		return orderTableRepository.findBidOrdersById(accountId);
+	}
+	
 	@Override
 	public List<OrderTable> findIncompleteOrders(int companyId, String region){
 		return orderTableRepository.findAllUnfilledOrdersByCompanyAndRegion(companyId, region);

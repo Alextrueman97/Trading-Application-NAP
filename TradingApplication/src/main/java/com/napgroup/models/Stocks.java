@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 public class Stocks {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int stockId;
 	@ManyToOne
 	private Company companyId;
@@ -98,6 +98,8 @@ public class Stocks {
 		return "Stocks [stockId=" + stockId + ", companyId=" + companyId + ", stockPrice=" + stockPrice + ", region="
 				+ region + ", stockAmount=" + stockAmount + ", orderTable=" + orderTable + "]";
 	}
+
+	
 
 	
 

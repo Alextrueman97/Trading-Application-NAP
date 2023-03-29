@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Company {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "company_id")
 	private int companyId;
 	@Column(name = "company_symbol", columnDefinition = "VARCHAR(4)")
@@ -73,8 +73,10 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companySymbol=" + companySymbol + ", companyName=" + companyName
-				+ "]";
+				+ ", stocks=" + stocks + "]";
 	}
+
+	
 	
 	
 }

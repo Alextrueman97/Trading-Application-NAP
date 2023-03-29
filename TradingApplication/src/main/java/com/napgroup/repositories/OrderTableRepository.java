@@ -10,8 +10,17 @@ import com.napgroup.models.OrderTable;
 
 public interface OrderTableRepository extends JpaRepository<OrderTable, Integer>{
 
-	@Query(value = "SELECT * FROM order_table ot WHERE ot.account_id = :accountId", nativeQuery = true)
-	public List<OrderTable> findAllOrdersByUserId(int accountId);
+	//@Query(value = "SELECT * FROM order_table ot WHERE ot.account_id = :accountId", nativeQuery = true)
+	//public List<OrderTable> findAllOrdersByUserId(int accountId);
+	
+	@Query(value = "SELECT * FROM order_table ot WHERE ot.seller_id = :accountId", nativeQuery = true)
+	public List<OrderTable> findAskOrdersById(int accountId);
+	//seller
+	
+	@Query(value = "SELECT * FROM order_table ot WHERE ot.buyer_id = :accountId", nativeQuery = true)
+	public List<OrderTable> findBidOrdersById(int accountId);
+	//buyer
+	
 	
 	@Query(value = "SELECT * FROM order_table ot WHERE ot.company_id = :companyId AND ot.region = :region AND (ot.order_status = 'PARTIAL' OR ot.order_status = 'PENDING')", nativeQuery = true)
 	public List<OrderTable> findAllUnfilledOrdersByCompanyAndRegion(int companyId, String region);

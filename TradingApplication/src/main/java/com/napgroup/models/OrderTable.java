@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,7 +19,7 @@ import jakarta.persistence.Table;
 public class OrderTable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name  = "order_id")
 	private int orderId;
 	@ManyToOne
@@ -35,15 +36,17 @@ public class OrderTable {
 	private SaleType saleType;
 	@Column(name = "sale_date")
 	private LocalDateTime saleDate;
+	@ManyToOne
 	@JoinColumn(name = "seller_id", referencedColumnName = "account_id")
-	private int sellerId;
+	private UserAccount sellerId;
+	@ManyToOne
 	@JoinColumn(name = "buyer_id", referencedColumnName = "account_id")
-	private int buyerId;
+	private UserAccount buyerId;
 	
 	public OrderTable() {}
 	
 	public OrderTable(int orderId, Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
-			SaleType saleType, LocalDateTime saleDate, int sellerId, int buyerId) {
+			SaleType saleType, LocalDateTime saleDate, UserAccount sellerId, UserAccount buyerId) {
 		super();
 		this.orderId = orderId;
 		this.stockId = stockId;
@@ -58,7 +61,7 @@ public class OrderTable {
 	}
 	//constructor without orderId
 	public OrderTable(Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
-			SaleType saleType, LocalDateTime saleDate, int sellerId, int buyerId) {
+			SaleType saleType, LocalDateTime saleDate, UserAccount sellerId, UserAccount buyerId) {
 		super();
 		this.stockId = stockId;
 		this.salePrice = salePrice;
@@ -119,19 +122,19 @@ public class OrderTable {
 		this.saleType = saleType;
 	}
 
-	public int getSellerId() {
+	public UserAccount getSellerId() {
 		return sellerId;
 	}
 
-	public void setSellerId(int sellerId) {
+	public void setSellerId(UserAccount sellerId) {
 		this.sellerId = sellerId;
 	}
 
-	public int getBuyerId() {
+	public UserAccount getBuyerId() {
 		return buyerId;
 	}
 
-	public void setBuyerId(int buyerId) {
+	public void setBuyerId(UserAccount buyerId) {
 		this.buyerId = buyerId;
 	}
 
@@ -157,6 +160,7 @@ public class OrderTable {
 				+ stockAmount + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", saleType=" + saleType
 				+ ", saleDate=" + saleDate + ", sellerId=" + sellerId + ", buyerId=" + buyerId + "]";
 	}
+
 	
 	
 	

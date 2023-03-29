@@ -1,10 +1,13 @@
 package com.napgroup.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,7 +15,7 @@ import jakarta.persistence.Table;
 public class UserAccount {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)//Auto Increment
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//Auto Increment
 	@Column(name = "account_id")
 	private int accountId;
 	@Column(name = "username", unique = true, columnDefinition = "VARCHAR(25)")
@@ -25,6 +28,10 @@ public class UserAccount {
 	private String firstName;
 	@Column(name = "last_name", columnDefinition = "VARCHAR(25)")
 	private String lastName;
+	@OneToMany(mappedBy = "sellerId")
+	private List<OrderTable> ask;
+	@OneToMany(mappedBy = "buyerId")
+	private List<OrderTable> bid;
 	
 	public UserAccount() {
 		super();
@@ -91,8 +98,11 @@ public class UserAccount {
 	@Override
 	public String toString() {
 		return "UserAccount [accountId=" + accountId + ", username=" + username + ", emailAddress=" + emailAddress
-				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", ask=" + ask
+				+ ", bid=" + bid + "]";
 	}
+
+	
 	
 	
 	

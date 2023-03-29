@@ -7,7 +7,9 @@ import com.napgroup.models.OrderTable;
 
 public interface OrderService {
 	
-	public List<OrderTable> findUsersOrders(int accountId);
+	//public List<OrderTable> findUsersOrders(int accountId);
+	public List<OrderTable> findAskOrdersById(int accountId);
+	public List<OrderTable> findBidOrdersById(int accountId);
 	public List<OrderTable> findIncompleteOrders(int companyId, String region);
 	public List<OrderTable> findCompleteOrders(int userId);
 	public OrderTable addOrder(OrderTable order);

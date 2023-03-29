@@ -21,16 +21,10 @@ class OrderServiceTest {
 	private OrderServiceImpl orderServiceImpl;
 
 	@Test
-	void testFindAllOrdersByUserId() {
-		
-		
-		
-	}
+	void testFindAllOrdersByUserId() {}
 	
 	@Test 
-	void findAllUnfilledOrdersByCompanyAndRegion() {}
+	void testFindAllUnfilledOrdersByCompanyAndRegion() {}
 	
-	public List<OrderTable> findAllOrdersByUserId(int userId);
-	public List<OrderTable> findAllUnfilledOrdersByCompanyAndRegion(int companyId, String region);
-
+	
 }

@@ -16,5 +16,6 @@ public interface OrderService {
 	public OrderTable updateOrderStatus(int orderId, OrderStatus orderStatus);
 	public OrderTable updateStockAmount(int orderId, int stockAmount);
 	public OrderTable updateStockPrice(int orderId, double stockPrice);
+
 	
 }

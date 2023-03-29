@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,24 +23,11 @@ public class OrderTable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name  = "order_id")
 	private int orderId;
-	@ManyToOne
-	private Stocks stockId;
-	@Column(name = "sale_price")
-	private double salePrice;
-	@Column(name = "stock_amount")
-	private int stockAmount;
-	@Enumerated(EnumType.STRING)
-	private OrderStatus orderStatus;
-	@Enumerated(EnumType.STRING)
-	private OrderType orderType;
-	@Enumerated(EnumType.STRING)
-	private SaleType saleType;
-	@Column(name = "sale_date")
-	private LocalDateTime saleDate;
-	@ManyToOne
+	
+	@OneToOne
 	@JoinColumn(name = "seller_id", referencedColumnName = "account_id")
 	private UserAccount sellerId;
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "buyer_id", referencedColumnName = "account_id")
 	private UserAccount buyerId;
 	
@@ -58,6 +46,20 @@ public class OrderTable {
 		this.saleDate = saleDate;
 		this.sellerId = sellerId;
 		this.buyerId = buyerId;
+	}
+	
+	public OrderTable(int orderId, Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
+			SaleType saleType, LocalDateTime saleDate, UserAccount sellerId) {
+		super();
+		this.orderId = orderId;
+		this.stockId = stockId;
+		this.salePrice = salePrice;
+		this.stockAmount = stockAmount;
+		this.orderStatus = orderStatus;
+		this.orderType = orderType;
+		this.saleType = saleType;
+		this.saleDate = saleDate;
+		this.sellerId = sellerId;
 	}
 	//constructor without orderId
 	public OrderTable(Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus, OrderType orderType,
@@ -156,7 +158,7 @@ public class OrderTable {
 
 	@Override
 	public String toString() {
-		return "OrderTable [orderId=" + orderId + ", stockId=" + stockId + ", salePrice=" + salePrice + ", stockAmount="
+		return "OrderTable [orderId=" + orderId + ", salePrice=" + salePrice + ", stockAmount="
 				+ stockAmount + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", saleType=" + saleType
 				+ ", saleDate=" + saleDate + ", sellerId=" + sellerId + ", buyerId=" + buyerId + "]";
 	}

@@ -22,8 +22,9 @@ public class OrderTableTestController {
 	
 	@GetMapping("/testAskOrders")
 	public String findAskOrdersById(){
-	//	List<OrderTable> orderTable = orderService.findAskOrdersById(3);
-	//	System.out.println(orderTable);
+		OrderTable orderTable = orderService.findAskOrdersById(4);
+		System.out.println("TESTING");
+		System.out.println(orderTable.getSellerId().getAsk().get(0));
 		return "order_table";
 	}
 	

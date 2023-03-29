@@ -29,14 +29,19 @@ public class Company {
 		super();
 	}
 
+	public Company(int companyId, String companySymbol, String companyName, List<Stocks> stocks) {
+		super();
+		this.companySymbol = companySymbol;
+		this.companyName = companyName;
+		this.stocks = stocks;
+	}
+	
 	public Company(String companySymbol, String companyName, List<Stocks> stocks) {
 		super();
 		this.companySymbol = companySymbol;
 		this.companyName = companyName;
 		this.stocks = stocks;
 	}
-
-
 
 	public int getCompanyId() {
 		return companyId;

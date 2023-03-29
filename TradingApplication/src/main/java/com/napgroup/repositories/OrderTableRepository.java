@@ -1,20 +1,27 @@
 package com.napgroup.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTable;
+import com.napgroup.models.OrderType;
+import com.napgroup.models.SaleType;
+import com.napgroup.models.Stocks;
+import com.napgroup.models.UserAccount;
 
 public interface OrderTableRepository extends JpaRepository<OrderTable, Integer>{
 
 	//@Query(value = "SELECT * FROM order_table ot WHERE ot.account_id = :accountId", nativeQuery = true)
 	//public List<OrderTable> findAllOrdersByUserId(int accountId);
 	
-	@Query(value = "SELECT * FROM order_table ot WHERE ot.seller_id = :accountId", nativeQuery = true)
-	public List<OrderTable> findAskOrdersById(int accountId);
+	// @Query(value = "SELECT * FROM order_table ot WHERE ot.seller_id = :accountId", nativeQuery = true)
+	@Query(value = "select new OrderTable(ot.orderId, ot.stockId, ot.salePrice, ot.stockAmount, ot.orderStatus, ot.orderType, ot.saleType, ot.saleDate, ot.sellerId) from OrderTable ot where ot.sellerId.accountId = :accountId")
+	public OrderTable findAskOrdersById(@Param("accountId") int accountId);
 	//seller
 	
 	@Query(value = "SELECT * FROM order_table ot WHERE ot.buyer_id = :accountId", nativeQuery = true)

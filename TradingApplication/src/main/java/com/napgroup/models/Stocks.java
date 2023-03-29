@@ -30,10 +30,20 @@ public class Stocks {
 	@Column(name = "stock_amount")
 	private int stockAmount;
 	@OneToMany(mappedBy = "stockId")
-	private List<OrderTable>orderTable;
+	private List<OrderTable> orderTable;
 	
 	public Stocks() {
 		super();
+	}
+	
+	public Stocks(int stockId, Company companyId, double stockPrice, Region region, int stockAmount, List<OrderTable> orderTable) {
+		super();
+		this.stockId  = stockId;
+		this.companyId = companyId;
+		this.stockPrice = stockPrice;
+		this.region = region;
+		this.stockAmount = stockAmount;
+		this.orderTable = orderTable;
 	}
 	
 	public Stocks(Company companyId, double stockPrice, Region region, int stockAmount, List<OrderTable> orderTable) {

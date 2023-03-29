@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 	//}
 	
 	@Override
-	public List<OrderTable> findAskOrdersById(int accountId){
+	public OrderTable findAskOrdersById(int accountId){
 		return orderTableRepository.findAskOrdersById(accountId);
 	}
 	

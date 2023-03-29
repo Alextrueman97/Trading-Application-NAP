@@ -30,29 +30,35 @@ public class Stocks {
 	@Column(name = "stock_amount")
 	private int stockAmount;
 	@OneToMany(mappedBy = "stockId")
-	private List<OrderTable> orderTable;
+	private List<AskOrders>askOrderTable;
+	@OneToMany(mappedBy = "stockId")
+	private List<BidOrders>bidOrderTable;
 	
 	public Stocks() {
 		super();
 	}
 	
-	public Stocks(int stockId, Company companyId, double stockPrice, Region region, int stockAmount, List<OrderTable> orderTable) {
+	public Stocks(int stockId, Company companyId, double stockPrice, Region region, int stockAmount, List<AskOrders> askOrderTable, List<BidOrders> bidOrderTable) {
 		super();
-		this.stockId  = stockId;
+		this.stockId = stockId;
+
 		this.companyId = companyId;
 		this.stockPrice = stockPrice;
 		this.region = region;
 		this.stockAmount = stockAmount;
-		this.orderTable = orderTable;
+		this.askOrderTable = askOrderTable;
+		this.bidOrderTable = bidOrderTable;
 	}
 	
-	public Stocks(Company companyId, double stockPrice, Region region, int stockAmount, List<OrderTable> orderTable) {
+	
+	public Stocks(Company companyId, double stockPrice, Region region, int stockAmount, List<AskOrders> askOrderTable, List<BidOrders> bidOrderTable) {
 		super();
 		this.companyId = companyId;
 		this.stockPrice = stockPrice;
 		this.region = region;
 		this.stockAmount = stockAmount;
-		this.orderTable = orderTable;
+		this.askOrderTable = askOrderTable;
+		this.bidOrderTable = bidOrderTable;
 	}
 
 	public int getStockId() {
@@ -95,20 +101,32 @@ public class Stocks {
 		this.stockAmount = stockAmount;
 	}
 	
-	public List<OrderTable> getOrderTable() {
-		return orderTable;
+
+	public List<AskOrders> getAskOrderTable() {
+		return askOrderTable;
 	}
 
-	public void setOrderTable(List<OrderTable> orderTable) {
-		this.orderTable = orderTable;
+	public void setAskOrderTable(List<AskOrders> askOrderTable) {
+		this.askOrderTable = askOrderTable;
+	}
+
+	public List<BidOrders> getBidOrderTable() {
+		return bidOrderTable;
+	}
+
+	public void setBidOrderTable(List<BidOrders> bidOrderTable) {
+		this.bidOrderTable = bidOrderTable;
 	}
 
 	@Override
 	public String toString() {
 		return "Stocks [stockId=" + stockId + ", companyId=" + companyId + ", stockPrice=" + stockPrice + ", region="
-				+ region + ", stockAmount=" + stockAmount + ", orderTable=" + orderTable + "]";
+				+ region + ", stockAmount=" + stockAmount + ", askOrderTable=" + askOrderTable.size() + ", bidOrderTable="
+				+ bidOrderTable.size() + "]";
 	}
 
+	
+	
 	
 
 	

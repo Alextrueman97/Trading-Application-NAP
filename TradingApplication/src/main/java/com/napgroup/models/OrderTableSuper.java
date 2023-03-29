@@ -16,8 +16,9 @@ public class OrderTableSuper {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name  = "order_id")
 	private int orderId;
+	@ManyToOne
+	private UserAccount accountId;
 	@ManyToOne
 	private Stocks stockId;
 	@Column(name = "sale_price")
@@ -35,12 +36,14 @@ public class OrderTableSuper {
 	
 	public OrderTableSuper() {
 		super();
-	}
-
-	public OrderTableSuper(int orderId, Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus,
-			OrderType orderType, SaleType saleType, LocalDateTime saleDate) {
+	}	
+	
+	
+	public OrderTableSuper(int orderId, UserAccount accountId, Stocks stockId, double salePrice, int stockAmount,
+			OrderStatus orderStatus, OrderType orderType, SaleType saleType, LocalDateTime saleDate) {
 		super();
 		this.orderId = orderId;
+		this.accountId = accountId;
 		this.stockId = stockId;
 		this.salePrice = salePrice;
 		this.stockAmount = stockAmount;
@@ -61,6 +64,21 @@ public class OrderTableSuper {
 		this.saleType = saleType;
 		this.saleDate = saleDate;
 	}
+
+
+	public OrderTableSuper(int orderId, Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus,
+			OrderType orderType, SaleType saleType, LocalDateTime saleDate) {
+		super();
+		this.orderId = orderId;
+		this.stockId = stockId;
+		this.salePrice = salePrice;
+		this.stockAmount = stockAmount;
+		this.orderStatus = orderStatus;
+		this.orderType = orderType;
+		this.saleType = saleType;
+		this.saleDate = saleDate;
+	}
+
 
 	public int getOrderId() {
 		return orderId;
@@ -126,13 +144,23 @@ public class OrderTableSuper {
 		this.saleDate = saleDate;
 	}
 
+	public UserAccount getAccountId() {
+		return accountId;
+	}
+
+
+
+	public void setAccountId(UserAccount accountId) {
+		this.accountId = accountId;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "OrderTableSuper [orderId=" + orderId + ", stockId=" + stockId + ", salePrice=" + salePrice
-				+ ", stockAmount=" + stockAmount + ", orderStatus=" + orderStatus + ", orderType=" + orderType
-				+ ", saleType=" + saleType + ", saleDate=" + saleDate + "]";
-	}
-	
-	
+		return "OrderTableSuper [orderId=" + orderId + ", accountId=" + accountId + ", stockId=" + stockId
+				+ ", salePrice=" + salePrice + ", stockAmount=" + stockAmount + ", orderStatus=" + orderStatus
+				+ ", orderType=" + orderType + ", saleType=" + saleType + ", saleDate=" + saleDate + "]";
+	}	
 	
 }

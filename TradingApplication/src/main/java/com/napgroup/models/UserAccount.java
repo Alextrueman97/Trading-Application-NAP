@@ -28,15 +28,26 @@ public class UserAccount {
 	private String firstName;
 	@Column(name = "last_name", columnDefinition = "VARCHAR(25)")
 	private String lastName;
-	@OneToOne(mappedBy = "sellerId")
-	private OrderTable ask;
-	@OneToOne(mappedBy = "buyerId")
-	private OrderTable bid;
+	@OneToMany(mappedBy = "accountId")
+	private List<AskOrders> askOrderTable;
+	@OneToMany(mappedBy = "accountId")
+	private List<BidOrders> bidOrderTable;
 	
 	public UserAccount() {
 		super();
 	}
 
+	
+	public UserAccount(int accountId, String username, String emailAddress, String password, String firstName, String lastName) {
+		super();
+		this.accountId = accountId;
+		this.username = username;
+		this.emailAddress = emailAddress;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
 	//Constructor not including accountId as it uses Auto Increment
 	public UserAccount(int accountId, String username, String emailAddress, String password, String firstName, String lastName) {
 		super();
@@ -124,8 +135,9 @@ public class UserAccount {
 	@Override
 	public String toString() {
 		return "UserAccount [accountId=" + accountId + ", username=" + username + ", emailAddress=" + emailAddress
-				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", ask=" + ask
-				+ ", bid=" + bid + "]";
+				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + "]" + ", askOrders= " + askOrderTable.size() + ", askOrders= " + bidOrderTable.size();
 	}	
+	
+
 	
 }

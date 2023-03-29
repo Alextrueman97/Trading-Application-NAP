@@ -28,6 +28,14 @@ public class Company {
 	public Company() {
 		super();
 	}
+	
+	public Company(int companyId, String companySymbol, String companyName, List<Stocks> stocks) {
+		super();
+		this.companyId = companyId;
+		this.companySymbol = companySymbol;
+		this.companyName = companyName;
+		this.stocks = stocks;
+	}
 
 	public Company(int companyId, String companySymbol, String companyName, List<Stocks> stocks) {
 		super();
@@ -78,7 +86,7 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companySymbol=" + companySymbol + ", companyName=" + companyName
-				+ ", stocks=" + stocks + "]";
+				+ ", stocks=" + stocks.size() + "]";
 	}
 
 	

@@ -5,66 +5,58 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.napgroup.models.AskOrders;
-import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.Region;
+import com.napgroup.models.SaleType;
 
 @Service
 public class OrderTableSuperServiceImpl implements OrderTableSuperService {
 	
 	@Autowired
 	private AskOrdersService askOrdersService;
+	@Autowired
+	private BidOrderService bidOrderService;
 
 	@Override
 	public List<OrderTableSuper> findUserOrdersByAccountId(int accountId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderTableSuper> orders = askOrdersService.findUserOrdersByAccountId(accountId);
+		orders.addAll(bidOrderService.findUserOrdersByAccountId(accountId));
+		return orders;
 	}
 
 	@Override
 	public List<OrderTableSuper> findIncompleteOrdersByCompanyAndRegion(int companyId, Region region) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderTableSuper> orders = askOrdersService.findIncompleteOrdersByCompanyAndRegion(companyId, region);
+		orders.addAll(bidOrderService.findIncompleteOrdersByCompanyAndRegion(companyId, region));
+		return orders;
 	}
 
 	@Override
 	public List<OrderTableSuper> findCompleteOrdersByAccountId(int accountId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderTableSuper> orders = askOrdersService.findCompleteOrdersByAccountId(accountId);
+		orders.addAll(bidOrderService.findCompleteOrdersByAccountId(accountId));
+		return orders;
 	}
 
 	@Override
-	public List<OrderTableSuper> findTotalStocksByAccountIdAndCompanyAndRegion(int accountId, int companyId,
-			Region region) {
-		// TODO Auto-generated method stub
-		return null;
+	public int findTotalStocksByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region) {
+		
+		int totalAskStocks = askOrdersService.findTotalStocksByAccountIdAndCompanyAndRegion(accountId, companyId, region);
+		int totalBidStocks = bidOrderService.findTotalStocksByAccountIdAndCompanyAndRegion(accountId, companyId, region);
+		int totalStocks = totalBidStocks - totalAskStocks;
+		
+		return totalStocks;
+		
 	}
 
 	@Override
-	public OrderTableSuper addAskOrder(OrderTableSuper order) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderTableSuper addOrder(OrderTableSuper order) {
+		if(order.getSaleType() == SaleType.ASK) {
+			askOrdersService.addOrder(order);
+		} else if(order.getSaleType() == SaleType.BID) {
+			bidOrderService.addOrder(order);
+		}
+		return order;
 	}
-
-	@Override
-	public OrderTableSuper updateOrderStatus(int orderId, OrderStatus orderStatus) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OrderTableSuper updateStockAmount(int orderId, int stockAmount) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OrderTableSuper updateStockPrice(int orderId, double salePrice) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 
 }

@@ -1,13 +1,13 @@
 package com.napgroup.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.napgroup.models.AskOrders;
 import com.napgroup.models.OrderStatus;
+import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.Region;
 import com.napgroup.repositories.AskOrdersRepository;
 
@@ -18,42 +18,54 @@ public class AskOrdersServiceImpl implements AskOrdersService {
 	private AskOrdersRepository askOrdersRepository;
 
 	@Override
-	public List<AskOrders> findUserAskOrdersByAccountId(int accountId) {
+	public List<OrderTableSuper> findUserOrdersByAccountId(int accountId) {
 		return askOrdersRepository.findUserAskOrdersByAccountId(accountId);
 	}
 
 	@Override
-	public List<AskOrders> findIncompleteOrdersByCompanyAndRegion(int companyId, Region region) {
+	public List<OrderTableSuper> findIncompleteOrdersByCompanyAndRegion(int companyId, Region region) {
 		return askOrdersRepository.findIncompleteOrdersByCompanyAndRegion(companyId, region);
 	}
 
 	@Override
-	public List<AskOrders> findCompleteOrdersByAccountId(int accountId) {
+	public List<OrderTableSuper> findCompleteOrdersByAccountId(int accountId) {
 		return askOrdersRepository.findCompleteOrdersByAccountId(accountId);
 	}
 	
 	@Override
-	public List<AskOrders> findCompleteOrdersByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region) {
+	public List<OrderTableSuper> findCompleteOrdersByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region) {
 		return askOrdersRepository.findCompleteOrdersByAccountIdAndCompanyAndRegion(accountId, companyId, region);
 	}
 	
 	@Override
-	public AskOrders addAskOrder(AskOrders askOrder) {
+	public int findTotalStocksByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region) {
+		List<OrderTableSuper> asks = askOrdersRepository.findCompleteOrdersByAccountIdAndCompanyAndRegion(accountId, companyId, region);
+		int total = 0;
+		for(OrderTableSuper ask: asks) {
+			total += ask.getStockAmount();
+		}
+		
+		return total;
+	}
+	
+	@Override
+	public OrderTableSuper addOrder(OrderTableSuper order) {
+		AskOrders askOrder = (AskOrders) order;
 		return askOrdersRepository.save(askOrder);
 	}
 
 	@Override
-	public AskOrders updateOrderStatus(int orderId, OrderStatus orderStatus) {
+	public OrderTableSuper updateOrderStatus(int orderId, OrderStatus orderStatus) {
 		return askOrdersRepository.updateOrderStatus(orderId, orderStatus);
 	}
 
 	@Override
-	public AskOrders updateStockAmount(int orderId, int stockAmount) {
+	public OrderTableSuper updateStockAmount(int orderId, int stockAmount) {
 		return askOrdersRepository.updateStockAmount(orderId, stockAmount);
 	}
 
 	@Override
-	public AskOrders updateStockPrice(int orderId, double salePrice) {
+	public OrderTableSuper updateStockPrice(int orderId, double salePrice) {
 		return askOrdersRepository.updateStockPrice(orderId, salePrice);
 	}
 

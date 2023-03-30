@@ -42,7 +42,7 @@ class SortServiceTest {
 		orders = new LinkedList<OrderTable>();
 		orderBook = new OrderBook(orders);
 		orderBooks = new HashMap<Region, OrderBook>();
-		Company company = new Company("APP", "Apple");
+		Company company = new Company("APP", "Apple", new Stocks());
 		orderBooks.put(Region.LSE, orderBook);
 		Sort sort = new Sort(orderBooks, company);
 		sortServiceImpl = new SortServiceImpl(sort);

@@ -1,13 +1,10 @@
 package com.napgroup.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import com.napgroup.models.OrderBook;
-import com.napgroup.models.OrderStatus;
-import com.napgroup.models.OrderTable;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.OrderType;
 import com.napgroup.models.Region;
@@ -17,6 +14,8 @@ import com.napgroup.models.Sort;
 public class SortServiceImpl implements SortService {
 
 	private Sort sort;
+	@Autowired
+	private AskOrdersService askOrdersService;
 	
 	public SortServiceImpl(Sort sort) {
 		this.sort = sort;

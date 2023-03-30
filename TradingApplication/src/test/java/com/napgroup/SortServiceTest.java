@@ -19,17 +19,19 @@ import com.napgroup.models.Company;
 import com.napgroup.models.OrderBook;
 import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTable;
+import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.OrderType;
 import com.napgroup.models.Region;
 import com.napgroup.models.SaleType;
 import com.napgroup.models.Sort;
+import com.napgroup.models.Stocks;
 import com.napgroup.services.SortServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class SortServiceTest {
 	
 	private SortServiceImpl sortServiceImpl;
-	private List<OrderTable> orders;
+	private List<OrderTableSuper> orders;
 	private OrderBook orderBook;
 	private Map<Region, OrderBook> orderBooks;
 	
@@ -39,15 +41,15 @@ class SortServiceTest {
 	@Test
 	void testFindAskEmptyBid() {
 		
-		orders = new LinkedList<OrderTable>();
+		orders = new LinkedList<OrderTableSuper>();
 		orderBook = new OrderBook(orders);
 		orderBooks = new HashMap<Region, OrderBook>();
 		Company company = new Company("APP", "Apple", new Stocks());
 		orderBooks.put(Region.LSE, orderBook);
 		Sort sort = new Sort(orderBooks, company);
 		sortServiceImpl = new SortServiceImpl(sort);
-		OrderTable bid = new OrderTable();
-		Optional<OrderTable> ask = sortServiceImpl.findAsk(bid, Region.LSE);
+		OrderTableSuper bid = new OrderTableSuper();
+		Optional<OrderTableSuper> ask = sortServiceImpl.findAsk(bid, Region.LSE);
 		assertTrue(ask.isEmpty());
 	
 	}

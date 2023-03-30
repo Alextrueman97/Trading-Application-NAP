@@ -22,6 +22,7 @@ public interface AskOrdersService {
 	public List<AskOrders> findUserAskOrdersByAccountId( int accountId);
 	public List<AskOrders> findIncompleteOrdersByCompanyAndRegion(int companyId, Region region);
 	public List<AskOrders> findCompleteOrdersByAccountId(int accountId);
+	public List<AskOrders> findCompleteOrdersByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region);
 	public AskOrders addAskOrder(AskOrders askOrder);
 	public AskOrders updateOrderStatus(int orderId, OrderStatus orderStatus);
 	public AskOrders updateStockAmount(int orderId, int stockAmount);

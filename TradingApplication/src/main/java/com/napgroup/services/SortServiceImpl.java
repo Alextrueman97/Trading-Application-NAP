@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.OrderType;
 import com.napgroup.models.Region;
@@ -16,6 +17,10 @@ public class SortServiceImpl implements SortService {
 	private Sort sort;
 	@Autowired
 	private AskOrdersService askOrdersService;
+	@Autowired
+	private BidOrderService bidOrdersService;
+	@Autowired
+	private OrderTableSuperService orderTableSuperService;
 	
 	public SortServiceImpl(Sort sort) {
 		this.sort = sort;
@@ -78,7 +83,11 @@ public class SortServiceImpl implements SortService {
 	public int executeTrade(OrderTableSuper ask, OrderTableSuper bid) {
 		if(ask.getStockAmount() == bid.getStockAmount() ) {
 			// set orders to filled
+			askOrdersService.updateOrderStatus(ask.getOrderId(), OrderStatus.COMPLETE);
+			bidOrdersService.updateOrderStatus(bid.getOrderId(), OrderStatus.COMPLETE);
 			// transfer stocks between users
+			
+			
 		} else if(ask.getStockAmount() < bid.getStockAmount()) {
 			// set bid to partially filled
 			// set ask to filled

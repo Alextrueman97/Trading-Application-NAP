@@ -48,17 +48,6 @@ public class UserAccount {
 		this.lastName = lastName;
 	}
 	
-	//Constructor not including accountId as it uses Auto Increment
-	public UserAccount(int accountId, String username, String emailAddress, String password, String firstName, String lastName) {
-		super();
-		this.accountId = accountId;
-		this.username = username;
-		this.emailAddress = emailAddress;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-	
 	public UserAccount(String username, String emailAddress, String password, String firstName, String lastName) {
 		super();
 		this.username = username;
@@ -116,21 +105,25 @@ public class UserAccount {
 		this.lastName = lastName;
 	}
 
-	public List<OrderTable> getAsk() {
-		return ask;
+	public List<AskOrders> getAskOrderTable() {
+		return askOrderTable;
 	}
 
-	public void setAsk(List<OrderTable> ask) {
-		this.ask = ask;
+
+	public void setAskOrderTable(List<AskOrders> askOrderTable) {
+		this.askOrderTable = askOrderTable;
 	}
 
-	public List<OrderTable> getBid() {
-		return bid;
+
+	public List<BidOrders> getBidOrderTable() {
+		return bidOrderTable;
 	}
 
-	public void setBid(List<OrderTable> bid) {
-		this.bid = bid;
+
+	public void setBidOrderTable(List<BidOrders> bidOrderTable) {
+		this.bidOrderTable = bidOrderTable;
 	}
+
 
 	@Override
 	public String toString() {

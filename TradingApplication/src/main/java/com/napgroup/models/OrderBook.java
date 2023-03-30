@@ -4,18 +4,18 @@ import java.util.List;
 
 public class OrderBook {
 	
-	private List<OrderTable> orders;
+	private List<OrderTableSuper> orders;
 
-	public OrderBook(List<OrderTable> orders) {
+	public OrderBook(List<OrderTableSuper> orders) {
 		super();
 		this.orders = orders;
 	}
 
-	public List<OrderTable> getOrders() {
+	public List<OrderTableSuper> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<OrderTable> orders) {
+	public void setOrders(List<OrderTableSuper> orders) {
 		this.orders = orders;
 	}
 

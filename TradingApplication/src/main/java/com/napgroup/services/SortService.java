@@ -2,7 +2,6 @@ package com.napgroup.services;
 
 import java.util.Optional;
 
-import com.napgroup.models.OrderTable;
 import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.Region;
 

@@ -26,6 +26,9 @@ public interface AskOrdersRepository extends JpaRepository<AskOrders, Integer> {
 	@Query(value = "select new AskOrders(a.orderId, a.accountId, a.stockId, a.salePrice, a.stockAmount, a.orderStatus, a.orderType, a.saleType, a.saleDate) from AskOrders a where a.accountId.accountId = :accountId and a.orderStatus = 'COMPLETE'")
 	public List<AskOrders> findCompleteOrdersByAccountId(@Param("accountId") int accountId);
 
+	@Query(value = "select new AskOrders(a.orderId, a.accountId, a.stockId, a.salePrice, a.stockAmount, a.orderStatus, a.orderType, a.saleType, a.saleDate) from AskOrders a where a.accountId.accountId = :accountId and a.orderStatus = 'COMPLETE' and a.stockId.companyId.companyId = :companyId and a.stockId.region = :region")
+	public List<AskOrders> findCompleteOrdersByAccountIdAndCompanyAndRegion(@Param("accountId") int accountId, @Param("companyId") int companyId, @Param("region") Region region);
+	
 	@Query(value = "update AskOrders a set a.orderStatus = :orderStatus where a.orderId = :orderId")
 	@Transactional
 	@Modifying

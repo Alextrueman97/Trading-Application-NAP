@@ -33,6 +33,11 @@ public class AskOrdersServiceImpl implements AskOrdersService {
 	}
 	
 	@Override
+	public List<AskOrders> findCompleteOrdersByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region) {
+		return askOrdersRepository.findCompleteOrdersByAccountIdAndCompanyAndRegion(accountId, companyId, region);
+	}
+	
+	@Override
 	public AskOrders addAskOrder(AskOrders askOrder) {
 		return askOrdersRepository.save(askOrder);
 	}

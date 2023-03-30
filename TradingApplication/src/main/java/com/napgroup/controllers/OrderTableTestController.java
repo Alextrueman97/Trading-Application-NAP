@@ -34,9 +34,9 @@ public class OrderTableTestController {
 	@GetMapping("/testAskOrders")
 	public String findAskOrdersById(){
 
-//		List<AskOrders> asks = askOrdersService.findCompleteOrdersByAccountId(1);
+//		List<AskOrders> asks = askOrdersService.findCompleteOrdersByAccountIdAndCompanyAndRegion(1, 1, Region.SSE);	
 //		System.out.println(asks.get(0));
-		System.out.println(stockService.updateStockAmountById(1, 100));
+//		System.out.println(asks.size());
 		
 		return "order_table";
 	}

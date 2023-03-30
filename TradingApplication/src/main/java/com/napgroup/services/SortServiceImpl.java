@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.napgroup.models.OrderBook;
 import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTable;
+import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.OrderType;
 import com.napgroup.models.Region;
 import com.napgroup.models.SaleType;
@@ -22,12 +23,12 @@ public class SortServiceImpl implements SortService {
 	}
 	
 	@Override
-	public Optional<OrderTable> findAsk(OrderTable bid, Region region) {
-		OrderTable ask = null;
-		List<OrderTable>  orderBook = sort.getOrderBooks().get(region).getOrders();
+	public Optional<OrderTableSuper> findAsk(OrderTableSuper bid, Region region) {
+		OrderTableSuper ask = null;
+		List<OrderTableSuper>  orderBook = sort.getOrderBooks().get(region).getOrders();
 		
 		if(bid.getOrderType() == OrderType.MARKET) {
-			for(OrderTable other: orderBook) {
+			for(OrderTableSuper other: orderBook) {
 				if(other.getSaleType() == SaleType.ASK) {
 					if(bid.getSalePrice() == other.getSalePrice()) {
 						ask = other;
@@ -36,7 +37,7 @@ public class SortServiceImpl implements SortService {
 				}
 			}
 		} else if(bid.getOrderType() == OrderType.LIMIT) {
-			for(OrderTable other: orderBook) {
+			for(OrderTableSuper other: orderBook) {
 				if(other.getSaleType() == SaleType.ASK) {
 					if(bid.getSalePrice() <= other.getSalePrice()) {
 						ask = other;
@@ -49,11 +50,11 @@ public class SortServiceImpl implements SortService {
 	}
 
 	@Override
-	public Optional<OrderTable> findBid(OrderTable ask, Region region) {
-		OrderTable bid = null;
-		List<OrderTable>  orderBook = sort.getOrderBooks().get(region).getOrders();
+	public Optional<OrderTableSuper> findBid(OrderTableSuper ask, Region region) {
+		OrderTableSuper bid = null;
+		List<OrderTableSuper>  orderBook = sort.getOrderBooks().get(region).getOrders();
 		if(ask.getOrderType() == OrderType.MARKET) {
-			for(OrderTable other: orderBook) {
+			for(OrderTableSuper other: orderBook) {
 				if(other.getSaleType() == SaleType.BID) {
 					if(ask.getSalePrice() == other.getSalePrice()) {
 						bid = other;
@@ -62,7 +63,7 @@ public class SortServiceImpl implements SortService {
 				}
 			}
 		} else if(ask.getOrderType() == OrderType.LIMIT) {
-			for(OrderTable other: orderBook) {
+			for(OrderTableSuper other: orderBook) {
 				if(other.getSaleType() == SaleType.BID) {
 					if(ask.getSalePrice() >= other.getSalePrice()) {
 						bid = other;
@@ -75,7 +76,7 @@ public class SortServiceImpl implements SortService {
 	}
 
 	@Override
-	public int executeTrade(OrderTable ask, OrderTable bid) {
+	public int executeTrade(OrderTableSuper ask, OrderTableSuper bid) {
 		if(ask.getStockAmount() == bid.getStockAmount() ) {
 			// set orders to filled
 			// transfer stocks between users

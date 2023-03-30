@@ -3,12 +3,13 @@ package com.napgroup.services;
 import java.util.Optional;
 
 import com.napgroup.models.OrderTable;
+import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.Region;
 
 public interface SortService {
 	
-	public Optional<OrderTable> findAsk(OrderTable order, Region region);
-	public Optional<OrderTable> findBid(OrderTable order, Region region);
-	public int executeTrade(OrderTable ask, OrderTable bid);
+	public Optional<OrderTableSuper> findAsk(OrderTableSuper order, Region region);
+	public Optional<OrderTableSuper> findBid(OrderTableSuper order, Region region);
+	public int executeTrade(OrderTableSuper ask, OrderTableSuper bid);
 
 }

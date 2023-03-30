@@ -1,13 +1,26 @@
 package com.napgroup.services;
 
-import com.napgroup.models.Stocks;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.napgroup.models.Stocks;
+import com.napgroup.repositories.StocksRepository;
+
+@Service
 public class StockServiceImpl implements StockService {
+	
+	@Autowired
+	private StocksRepository stocksRepository;
 
 	@Override
-	public Stocks updateStockAmountById(int stockId, int stockAmount) {
-		// TODO Auto-generated method stub
-		return null;
+	public int updateStockAmountById(int stockId, int stockAmount) {
+		return stocksRepository.updateStockAmountById(stockId, stockAmount);
 	}
+
+	@Override
+	public Stocks addStock(Stocks stock) {
+		return stocksRepository.save(stock);
+	}
+	
 
 }

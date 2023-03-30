@@ -4,6 +4,7 @@ import com.napgroup.models.Stocks;
 
 public interface StockService {
 	
-	public Stocks updateStockAmountById(int stockId, int stockAmount);
+	public Stocks addStock(Stocks stock);
+	public int updateStockAmountById(int stockId, int stockAmount);
 
 }

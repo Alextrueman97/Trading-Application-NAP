@@ -2,7 +2,6 @@ package com.napgroup;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -17,11 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.napgroup.models.BidOrders;
 import com.napgroup.models.OrderStatus;
+import com.napgroup.models.OrderTableSuper;
 import com.napgroup.models.OrderType;
 import com.napgroup.models.Region;
 import com.napgroup.models.SaleType;
 import com.napgroup.models.Stocks;
-import com.napgroup.models.UserAccount;
 import com.napgroup.repositories.BidOrdersRepository;
 import com.napgroup.services.BidOrdersServiceImpl;
 
@@ -37,13 +36,13 @@ public class BidOrderServiceTest {
 	void testFindUserBidOrdersByAccountId() {
 		
 		//mocking data
-		List<BidOrders> mockBidOrders = new ArrayList<>();
+		List<OrderTableSuper> mockBidOrders = new ArrayList<>();
 		mockBidOrders.add(new BidOrders());
 		mockBidOrders.add(new BidOrders());
 		when(bidOrdersRepository.findUserBidOrdersByAccountId(1)).thenReturn(mockBidOrders);
 		
 		//calling service method
-		List<BidOrders> result = bidOrdersServiceImpl.findUserBidOrdersByAccountId(1);
+		List<OrderTableSuper> result = bidOrdersServiceImpl.findUserOrdersByAccountId(1);
 		
 		//verifying result
 		assertEquals(mockBidOrders.size(), result.size());
@@ -52,11 +51,11 @@ public class BidOrderServiceTest {
 	@Test
 	void testFindIncompleteOrdersByCompanyAndRegion() {
 		
-		List<BidOrders> mockBidOrders = new ArrayList<>();
+		List<OrderTableSuper> mockBidOrders = new ArrayList<>();
 		mockBidOrders.add(new BidOrders());
 		when(bidOrdersRepository.findIncompleteOrdersByCompanyAndRegion(1, Region.LSE)).thenReturn(mockBidOrders);
 		
-		List<BidOrders> result = bidOrdersServiceImpl.findIncompleteOrdersByCompanyAndRegion(1, Region.LSE);
+		List<OrderTableSuper> result = bidOrdersServiceImpl.findIncompleteOrdersByCompanyAndRegion(1, Region.LSE);
 		
 		assertEquals(mockBidOrders.size(), result.size());
 	}
@@ -64,11 +63,11 @@ public class BidOrderServiceTest {
 	@Test
 	void testFindCompleteOrdersByAccountId() {
 		
-		List<BidOrders> mockBidOrders = new ArrayList<>();
+		List<OrderTableSuper> mockBidOrders = new ArrayList<>();
 		mockBidOrders.add(new BidOrders());
 		when(bidOrdersRepository.findCompleteOrdersByAccountId(1)).thenReturn(mockBidOrders);
 		
-		List<BidOrders> result = bidOrdersServiceImpl.findCompleteOrdersByAccountId(1);
+		List<OrderTableSuper> result = bidOrdersServiceImpl.findCompleteOrdersByAccountId(1);
 		
 		assertEquals(mockBidOrders.size(), result.size());
 	}
@@ -81,7 +80,7 @@ public class BidOrderServiceTest {
 		
 		when(bidOrdersRepository.save(any(BidOrders.class))).thenReturn(bidOrder);
 		
-		BidOrders savedBidOrder = bidOrdersServiceImpl.addBidOrder(bidOrder);
+		OrderTableSuper savedBidOrder = bidOrdersServiceImpl.addOrder(bidOrder);
 		
 		assertEquals(bidOrder, savedBidOrder);
 	}
@@ -93,13 +92,13 @@ public class BidOrderServiceTest {
 		
 		when(bidOrdersRepository.save(bidOrder)).thenReturn(new BidOrders(1, new Stocks(), 10, 100, OrderStatus.PENDING, OrderType.MARKET, SaleType.BID, LocalDateTime.now()));
 		
-		BidOrders savedOrder = bidOrdersServiceImpl.addBidOrder(bidOrder);
+		OrderTableSuper savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
 		
 		BidOrders updatedOrder = new BidOrders(savedOrder.getOrderId(), savedOrder.getStockId(), savedOrder.getSalePrice(), savedOrder.getStockAmount(), OrderStatus.COMPLETE, savedOrder.getOrderType(), savedOrder.getSaleType(), savedOrder.getSaleDate());
 		
 		when(bidOrdersRepository.updateOrderStatus(savedOrder.getOrderId(),OrderStatus.COMPLETE)).thenReturn(updatedOrder);
 		
-		BidOrders result = bidOrdersServiceImpl.updateOrderStatus(savedOrder.getOrderId(), OrderStatus.COMPLETE);
+		OrderTableSuper result = bidOrdersServiceImpl.updateOrderStatus(savedOrder.getOrderId(), OrderStatus.COMPLETE);
 		
 		assertEquals(updatedOrder, result);
 	}
@@ -110,13 +109,13 @@ public class BidOrderServiceTest {
 		
 		when(bidOrdersRepository.save(bidOrder)).thenReturn(new BidOrders(1, new Stocks(), 10, 100, OrderStatus.PENDING, OrderType.MARKET, SaleType.BID, LocalDateTime.now()));
 		
-		BidOrders savedOrder = bidOrdersServiceImpl.addBidOrder(bidOrder);
+		BidOrders savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
 		
 		BidOrders updateStock = new BidOrders(savedOrder.getOrderId(), savedOrder.getStockId(), savedOrder.getSalePrice(), 500, savedOrder.getOrderStatus(), savedOrder.getOrderType(), savedOrder.getSaleType(), savedOrder.getSaleDate());
 		
 		when(bidOrdersRepository.updateStockAmount(savedOrder.getOrderId(), 500)).thenReturn(updateStock);
 		
-		BidOrders result = bidOrdersServiceImpl.updateStockAmount(savedOrder.getOrderId(), 500);
+		OrderTableSuper result = bidOrdersServiceImpl.updateStockAmount(savedOrder.getOrderId(), 500);
 		
 		assertEquals(updateStock, result);
 	}
@@ -127,13 +126,13 @@ public class BidOrderServiceTest {
 		
 		when(bidOrdersRepository.save(bidOrder)).thenReturn(new BidOrders(1, new Stocks(), 10, 100, OrderStatus.PENDING, OrderType.MARKET, SaleType.BID, LocalDateTime.now()));
 		
-		BidOrders savedOrder = bidOrdersServiceImpl.addBidOrder(bidOrder);
+		BidOrders savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
 		
 		BidOrders updateStockPrice = new BidOrders(savedOrder.getOrderId(), savedOrder.getStockId(), 300, savedOrder.getStockAmount(), savedOrder.getOrderStatus(), savedOrder.getOrderType(), savedOrder.getSaleType(), savedOrder.getSaleDate());
 		
 		when(bidOrdersRepository.updateStockPrice(savedOrder.getOrderId(), 300)).thenReturn(updateStockPrice);
 		
-		BidOrders result = bidOrdersServiceImpl.updateStockPrice(savedOrder.getOrderId(), 300);
+		OrderTableSuper result = bidOrdersServiceImpl.updateStockPrice(savedOrder.getOrderId(), 300);
 		
 		assertEquals(updateStockPrice, result);
 	}

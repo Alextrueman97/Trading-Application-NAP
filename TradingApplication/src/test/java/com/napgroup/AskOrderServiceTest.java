@@ -33,6 +33,8 @@ public class AskOrderServiceTest {
 	@InjectMocks
 	AskOrdersServiceImpl askOrdersServiceImpl;
 	
+	
+	
 	@Test
 	void testFindUserBidOrdersByAccountId() {
 		
@@ -74,7 +76,7 @@ public class AskOrderServiceTest {
 	}
 	
 	@Test
-	void testAddBidOrder() {
+	void testAddAskOrder() {
 		Stocks stock = new Stocks();
 		stock.setStockId(1);
 		AskOrders askOrder = new AskOrders(stock, 10.0, 100, OrderStatus.PENDING, OrderType.MARKET, SaleType.BID, LocalDateTime.now());
@@ -136,5 +138,25 @@ public class AskOrderServiceTest {
 		OrderTableSuper result = askOrdersServiceImpl.updateStockPrice(savedOrder.getOrderId(), 300);
 		
 		assertEquals(updateStockPrice, result);
+	}
+	
+	@Test
+	void testFindTotalStocksByAccountIdAndCompanyAndRegion() {
+		//mocking 
+		int accountId = 1;
+		int companyId = 1;
+		Region region = Region.LSE;
+		List<OrderTableSuper> asks = new ArrayList<>();
+		OrderTableSuper ask1 = new OrderTableSuper();
+		ask1.setStockAmount(50);
+		asks.add(ask1);
+		OrderTableSuper ask2 = new OrderTableSuper();
+		ask2.setStockAmount(50);
+		asks.add(ask2);
+		when(askOrdersRepository.findCompleteOrdersByAccountIdAndCompanyAndRegion(accountId, companyId, region)).thenReturn(asks);
+		
+		int result = askOrdersServiceImpl.findTotalStocksByAccountIdAndCompanyAndRegion(accountId, companyId, region);
+		
+		assertEquals(100, result);
 	}
 }

@@ -109,7 +109,7 @@ public class BidOrderServiceTest {
 		
 		when(bidOrdersRepository.save(bidOrder)).thenReturn(new BidOrders(1, new Stocks(), 10, 100, OrderStatus.PENDING, OrderType.MARKET, SaleType.BID, LocalDateTime.now()));
 		
-		BidOrders savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
+		OrderTableSuper savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
 		
 		BidOrders updateStock = new BidOrders(savedOrder.getOrderId(), savedOrder.getStockId(), savedOrder.getSalePrice(), 500, savedOrder.getOrderStatus(), savedOrder.getOrderType(), savedOrder.getSaleType(), savedOrder.getSaleDate());
 		
@@ -126,7 +126,7 @@ public class BidOrderServiceTest {
 		
 		when(bidOrdersRepository.save(bidOrder)).thenReturn(new BidOrders(1, new Stocks(), 10, 100, OrderStatus.PENDING, OrderType.MARKET, SaleType.BID, LocalDateTime.now()));
 		
-		BidOrders savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
+		OrderTableSuper savedOrder = bidOrdersServiceImpl.addOrder(bidOrder);
 		
 		BidOrders updateStockPrice = new BidOrders(savedOrder.getOrderId(), savedOrder.getStockId(), 300, savedOrder.getStockAmount(), savedOrder.getOrderStatus(), savedOrder.getOrderType(), savedOrder.getSaleType(), savedOrder.getSaleDate());
 		
@@ -137,4 +137,23 @@ public class BidOrderServiceTest {
 		assertEquals(updateStockPrice, result);
 	}
 	
+	@Test
+	void testFindTotalStocksByAccountIdAndCompanyAndRegion() {
+		//mocking 
+		int accountId = 1;
+		int companyId = 1;
+		Region region = Region.LSE;
+		List<OrderTableSuper> bids = new ArrayList<>();
+		OrderTableSuper bid1 = new OrderTableSuper();
+		bid1.setStockAmount(50);
+		bids.add(bid1);
+		OrderTableSuper bid2 = new OrderTableSuper();
+		bid2.setStockAmount(50);
+		bids.add(bid2);
+		when(bidOrdersRepository.findCompleteOrdersByAccountIdAndCompanyAndRegion(accountId, companyId, region)).thenReturn(bids);
+		
+		int result = bidOrdersServiceImpl.findTotalStocksByAccountIdAndCompanyAndRegion(accountId, companyId, region);
+		
+		assertEquals(100, result);
+	}
 }

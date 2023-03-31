@@ -59,4 +59,12 @@ public class OrderTableSuperServiceImpl implements OrderTableSuperService {
 		return order;
 	}
 
+	public OrderTableSuperServiceImpl(AskOrdersServiceImpl askOrdersService, BidOrdersServiceImpl bidOrderService) {
+		super();
+		this.askOrdersService = askOrdersService;
+		this.bidOrderService = bidOrderService;
+	}
+	
+	
+
 }

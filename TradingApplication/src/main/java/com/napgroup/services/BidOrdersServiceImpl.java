@@ -50,7 +50,7 @@ public class BidOrdersServiceImpl implements BidOrderService {
 	}
 
 	@Override
-	public BidOrders addOrder(OrderTableSuper order) {
+	public OrderTableSuper addOrder(OrderTableSuper order) {
 		BidOrders bidOrder = (BidOrders) order;
 		return bidOrdersRepository.save(bidOrder);
 	}

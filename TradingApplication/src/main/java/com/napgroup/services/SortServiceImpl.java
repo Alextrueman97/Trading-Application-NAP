@@ -52,40 +52,6 @@ public class SortServiceImpl implements SortService {
 		sort.setOrderBooks(orderBooks);
 	}
 	
-//	@Override
-//	public Optional<OrderTableSuper> findAsk(OrderTableSuper bid, Region region) {
-//		OrderTableSuper ask = null;
-//		List<OrderTableSuper>  orderBook = sort.getOrderBooks().get(region).getOrders();
-//		LinkedList<OrderTableSuper> sorted = new LinkedList<>(orderBook);
-//		Collections.sort(sorted, new OrderTableSuperComparator());
-//		if(bid.getOrderType() == OrderType.MARKET) {
-//			for(OrderTableSuper other: sorted) {
-//				if(other.getSaleType() == SaleType.ASK) {
-//					if((other.getOrderType() == OrderType.MARKET) && 
-//							(other.getSalePrice() == bid.getSalePrice())) {
-//						ask = other;
-//						break;
-//					} else if ((other.getOrderType() == OrderType.LIMIT) && 
-//							(other.getSalePrice() <= bid.getSalePrice())) {
-//						ask = other;
-//						break;
-//					}
-//				}
-//			}
-//		
-//		} else if(bid.getOrderType() == OrderType.LIMIT) {
-//			for(OrderTableSuper other: sorted) {
-//				if(other.getSaleType() == SaleType.ASK) {
-//					if(other.getSalePrice() <= bid.getSalePrice()) {
-//						ask = other;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		return Optional.ofNullable(ask);
-//	}
-	
 	@Override
 	public Optional<OrderTableSuper> findAsk(OrderTableSuper bid, Region region) {
 		
@@ -153,16 +119,12 @@ public class SortServiceImpl implements SortService {
 		return Optional.ofNullable(bid);
 	}
 	
+	@Override
 	public Optional<OrderTableSuper> findMatch(OrderTableSuper order, Region region) {
-//		Optional<OrderTableSuper> match = null;
-//		if(order.getSaleType() == SaleType.BID) {
-//			match = findAsk(order, region);
-//		} else {
-//			match = findBid(order, region);
-//		}
 		return (order.getSaleType() == SaleType.BID) ? findAsk(order, region) : findBid(order, region);
 	}
 	
+	@Override
 	public Optional<OrderTableSuper> executeBidTrade(OrderTableSuper bid, OrderTableSuper ask) {
 		
 		int compareStock = (bid.getStockAmount() == ask.getStockAmount() ? (0) 
@@ -203,6 +165,7 @@ public class SortServiceImpl implements SortService {
 		
 	}
 	
+	@Override
 	public Optional<OrderTableSuper> executeAskTrade(OrderTableSuper ask, OrderTableSuper bid) {
 		
 		int compareStock = (ask.getStockAmount() == bid.getStockAmount() ? (0) 
@@ -278,99 +241,5 @@ public class SortServiceImpl implements SortService {
 			}
 			updateSort();
 		}
-		
-//		Optional<OrderTableSuper> match = findMatch(currentOrder, region);
-//		System.err.println(match.get());
-//		if(match.isPresent()) {
-//			Optional<OrderTableSuper> nextOrder = executeTrade(currentOrder, match.get());
-//			System.err.println(nextOrder.get());
-//			if(nextOrder.isPresent()) {
-//				currentOrder = nextOrder.get();
-//			} else {
-//				isMatch = false;
-//			}
-//		} else {
-//			isMatch = false;
-//		}
-		
 	}
-	
-
-//	@Override
-//	public Optional<OrderTableSuper> findBid(OrderTableSuper ask, Region region) {
-//		OrderTableSuper bid = null;
-//		List<OrderTableSuper>  orderBook = sort.getOrderBooks().get(region).getOrders();
-//		LinkedList<OrderTableSuper> sorted = new LinkedList<>(orderBook);
-//		Collections.sort(sorted, new OrderTableSuperComparator());
-//		if(ask.getOrderType() == OrderType.MARKET) {
-//			for(OrderTableSuper other: sorted) {
-//				if(other.getSaleType() == SaleType.BID) {
-//					if(ask.getSalePrice() == other.getSalePrice()) {
-//						bid = other;
-//						break;
-//					}
-//				}
-//			}
-//		} else if(ask.getOrderType() == OrderType.LIMIT) {
-//			for(OrderTableSuper other: sorted) {
-//				if(other.getSaleType() == SaleType.BID) {
-//					if(other.getSalePrice() >= ask.getSalePrice()) {
-//						bid = other;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		return Optional.ofNullable(bid);
-//	}
-
-//	@Override
-//	public OrderTableSuper executeTrade(OrderTableSuper ask, OrderTableSuper bid) {
-//		if(ask.getStockAmount() == bid.getStockAmount()) {
-//			// set orders to filled
-//			askOrdersService.updateOrderStatus(ask.getOrderId(), OrderStatus.COMPLETE);
-//			bidOrdersService.updateOrderStatus(bid.getOrderId(), OrderStatus.COMPLETE);
-//			// transfer stocks between users
-//		} else if(ask.getStockAmount() < bid.getStockAmount()) {
-//			// set bid to partially filled
-//			bidOrdersService.updateStockAmount(bid.getOrderId(), ask.getStockAmount());
-//			// set ask to filled
-//			askOrdersService.updateOrderStatus(ask.getOrderId(), OrderStatus.COMPLETE);
-//			// transfer stocks between users
-//			OrderTableSuper newBid = new OrderTableSuper(bid.getStockId(), bid.getSalePrice(), bid.getStockAmount() - ask.getStockAmount(), OrderStatus.PARTIAL, bid.getOrderType(), bid.getSaleType(), bid.getSaleDate());
-//			bidOrdersService.addOrder(newBid);
-//			return newBid;
-//		} else if(ask.getStockAmount() > bid.getStockAmount()) {
-//			// set ask to partially filled
-//			askOrdersService.updateStockAmount(ask.getOrderId(), bid.getStockAmount());
-//			// set bid to filled
-//			bidOrdersService.updateOrderStatus(bid.getOrderId(), OrderStatus.COMPLETE);
-//			// transfer stocks between users
-//			OrderTableSuper newAsk = new OrderTableSuper(ask.getStockId(), ask.getSalePrice(), ask.getStockAmount() - bid.getStockAmount(), OrderStatus.PARTIAL, ask.getOrderType(), ask.getSaleType(), ask.getSaleDate());
-//			askOrdersService.addOrder(newAsk);
-//			return newAsk;
-//		}
-//		return ask;
-//	}
-//	
-//	public void executeMatchAndTrade(OrderTableSuper order, Region region) {
-//		
-//		while(order.getOrderStatus() != OrderStatus.COMPLETE) {
-//			Optional<OrderTableSuper> attemptMatch = Optional.empty();
-//			if(order.getSaleType() == SaleType.ASK) {
-//				attemptMatch = findBid(order, region);
-//				if(attemptMatch.isPresent()) {
-//					OrderTableSuper match = attemptMatch.get();
-//					order = executeTrade(order, match);
-//				}
-//				
-//			} else if(order.getSaleType() == SaleType.BID) {
-//				attemptMatch = findAsk(order, region);
-//				if(attemptMatch.isPresent()) {
-//					OrderTableSuper match = attemptMatch.get();
-//					order = executeTrade(match, order);
-//				}
-//			}
-//		}
-//	}
 }

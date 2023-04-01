@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface AskOrdersRepository extends JpaRepository<AskOrders, Integer> {
-
+	
 	@Query(value = "select new AskOrders(a.orderId, a.accountId, a.stockId, a.salePrice, a.stockAmount, a.orderStatus, a.orderType, a.saleType, a.saleDate) from AskOrders a where a.accountId.accountId = :accountId")
 	public List<OrderTableSuper> findUserAskOrdersByAccountId(@Param("accountId") int accountId);
 	
@@ -32,17 +32,17 @@ public interface AskOrdersRepository extends JpaRepository<AskOrders, Integer> {
 	
 	@Query(value = "update AskOrders a set a.orderStatus = :orderStatus where a.orderId = :orderId")
 	@Transactional
-	@Modifying
-	public OrderTableSuper updateOrderStatus(@Param("orderId") int orderId, @Param("orderStatus") OrderStatus orderStatus);
+	@Modifying(clearAutomatically = true)
+	public int updateOrderStatus(@Param("orderId") int orderId, @Param("orderStatus") OrderStatus orderStatus);
 
 	@Query(value = "update AskOrders a set a.stockAmount = :stockAmount where a.orderId = :orderId")
 	@Transactional
-	@Modifying
-	public OrderTableSuper updateStockAmount(@Param("orderId") int orderId, @Param("stockAmount") int stockAmount);
+	@Modifying(clearAutomatically = true)
+	public int updateStockAmount(@Param("orderId") int orderId, @Param("stockAmount") int stockAmount);
 	
 	@Query(value = "update AskOrders a set a.salePrice = :salePrice where a.orderId = :orderId")
 	@Transactional
-	@Modifying
-	public OrderTableSuper updateStockPrice(@Param("orderId") int orderId, @Param("salePrice") double salePrice);
+	@Modifying(clearAutomatically = true)
+	public int updateStockPrice(@Param("orderId") int orderId, @Param("salePrice") double salePrice);
 
 }

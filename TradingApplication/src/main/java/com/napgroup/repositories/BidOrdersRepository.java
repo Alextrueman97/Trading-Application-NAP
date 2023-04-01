@@ -32,17 +32,17 @@ public interface BidOrdersRepository extends JpaRepository<BidOrders, Integer> {
 	
 	@Query(value = "update BidOrders b set b.orderStatus = :orderStatus where b.orderId = :orderId")
 	@Transactional
-	@Modifying
-	public OrderTableSuper updateOrderStatus(@Param("orderId") int orderId, @Param("orderStatus") OrderStatus orderStatus);
+	@Modifying(clearAutomatically = true)
+	public int updateOrderStatus(@Param("orderId") int orderId, @Param("orderStatus") OrderStatus orderStatus);
 
 	@Query(value = "update BidOrders b set b.stockAmount = :stockAmount where b.orderId = :orderId")
 	@Transactional
-	@Modifying
-	public OrderTableSuper updateStockAmount(@Param("orderId") int orderId, @Param("stockAmount") int stockAmount);
+	@Modifying(clearAutomatically = true)
+	public int updateStockAmount(@Param("orderId") int orderId, @Param("stockAmount") int stockAmount);
 	
 	@Query(value = "update BidOrders b set b.salePrice = :salePrice where b.orderId = :orderId")
 	@Transactional
-	@Modifying
-	public OrderTableSuper updateStockPrice(@Param("orderId") int orderId, @Param("salePrice") double salePrice);
+	@Modifying(clearAutomatically = true)
+	public int updateStockPrice(@Param("orderId") int orderId, @Param("salePrice") double salePrice);
 	
 }

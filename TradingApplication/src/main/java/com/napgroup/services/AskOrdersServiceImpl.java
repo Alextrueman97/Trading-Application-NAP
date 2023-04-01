@@ -1,6 +1,8 @@
 package com.napgroup.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +10,11 @@ import org.springframework.stereotype.Service;
 import com.napgroup.models.AskOrders;
 import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTableSuper;
+import com.napgroup.models.OrderType;
 import com.napgroup.models.Region;
+import com.napgroup.models.SaleType;
+import com.napgroup.models.Stocks;
+import com.napgroup.models.UserAccount;
 import com.napgroup.repositories.AskOrdersRepository;
 
 @Service
@@ -50,23 +56,29 @@ public class AskOrdersServiceImpl implements AskOrdersService {
 	
 	@Override
 	public OrderTableSuper addOrder(OrderTableSuper order) {
-		AskOrders askOrder = (AskOrders) order;
+		AskOrders askOrder = new AskOrders(order.getAccountId(), order.getStockId(), order.getSalePrice(), order.getStockAmount(),
+				order.getOrderStatus(), order.getOrderType(),order.getSaleType(), order.getSaleDate());
 		return askOrdersRepository.save(askOrder);
 	}
 
 	@Override
-	public OrderTableSuper updateOrderStatus(int orderId, OrderStatus orderStatus) {
+	public int updateOrderStatus(int orderId, OrderStatus orderStatus) {
 		return askOrdersRepository.updateOrderStatus(orderId, orderStatus);
 	}
 
 	@Override
-	public OrderTableSuper updateStockAmount(int orderId, int stockAmount) {
+	public int updateStockAmount(int orderId, int stockAmount) {
 		return askOrdersRepository.updateStockAmount(orderId, stockAmount);
 	}
 
 	@Override
-	public OrderTableSuper updateStockPrice(int orderId, double salePrice) {
+	public int updateStockPrice(int orderId, double salePrice) {
 		return askOrdersRepository.updateStockPrice(orderId, salePrice);
+	}
+
+	@Override
+	public OrderTableSuper findOrderById(int orderId) {
+		return (OrderTableSuper) askOrdersRepository.findById(orderId).get();
 	}
 
 }

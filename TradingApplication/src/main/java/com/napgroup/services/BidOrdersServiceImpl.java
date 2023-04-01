@@ -1,10 +1,12 @@
 package com.napgroup.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.napgroup.models.AskOrders;
 import com.napgroup.models.BidOrders;
 import com.napgroup.models.OrderStatus;
 import com.napgroup.models.OrderTableSuper;
@@ -51,23 +53,29 @@ public class BidOrdersServiceImpl implements BidOrderService {
 
 	@Override
 	public OrderTableSuper addOrder(OrderTableSuper order) {
-		BidOrders bidOrder = (BidOrders) order;
+		BidOrders bidOrder = new BidOrders(order.getAccountId(), order.getStockId(), order.getSalePrice(), order.getStockAmount(),
+				order.getOrderStatus(), order.getOrderType(),order.getSaleType(), order.getSaleDate());
 		return bidOrdersRepository.save(bidOrder);
 	}
 
 	@Override
-	public OrderTableSuper updateOrderStatus(int orderId, OrderStatus orderStatus) {
+	public int updateOrderStatus(int orderId, OrderStatus orderStatus) {
 		return bidOrdersRepository.updateOrderStatus(orderId, orderStatus);
 	}
 
 	@Override
-	public OrderTableSuper updateStockAmount(int orderId, int stockAmount) {
+	public int updateStockAmount(int orderId, int stockAmount) {
 		return bidOrdersRepository.updateStockAmount(orderId, stockAmount);
 	}
 
 	@Override
-	public OrderTableSuper updateStockPrice(int orderId, double salePrice) {
+	public int updateStockPrice(int orderId, double salePrice) {
 		return bidOrdersRepository.updateStockPrice(orderId, salePrice);
+	}
+	
+	@Override
+	public OrderTableSuper findOrderById(int orderId) {
+		return (OrderTableSuper) bidOrdersRepository.findById(orderId).get();
 	}
 
 }

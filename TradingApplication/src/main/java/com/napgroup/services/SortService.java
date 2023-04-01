@@ -9,6 +9,7 @@ public interface SortService {
 	
 	public Optional<OrderTableSuper> findAsk(OrderTableSuper order, Region region);
 	public Optional<OrderTableSuper> findBid(OrderTableSuper order, Region region);
-	public int executeTrade(OrderTableSuper ask, OrderTableSuper bid);
+	public Optional<OrderTableSuper> executeTrade(OrderTableSuper ask, OrderTableSuper bid);
+	public void executeMatchAndTrade(OrderTableSuper order, Region region);
 
 }

@@ -1,6 +1,7 @@
 package com.napgroup.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.napgroup.models.AskOrders;
 import com.napgroup.models.BidOrders;
@@ -10,9 +11,10 @@ import com.napgroup.models.Region;
 
 public interface BidOrderService extends OrderTableSuperService {
 	
+	public OrderTableSuper findOrderById(int orderId);
 	public List<OrderTableSuper> findCompleteOrdersByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region);
-	public OrderTableSuper updateOrderStatus(int orderId, OrderStatus orderStatus);
-	public OrderTableSuper updateStockAmount(int orderId, int stockAmount);
-	public OrderTableSuper updateStockPrice(int orderId, double salePrice);
+	public int updateOrderStatus(int orderId, OrderStatus orderStatus);
+	public int updateStockAmount(int orderId, int stockAmount);
+	public int updateStockPrice(int orderId, double salePrice);
 
 }

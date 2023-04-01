@@ -16,5 +16,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public UserAccount addUserAccount(UserAccount user) {
 		return userAccountRepository.save(user);
 	}
+	
+	public UserAccount findUserById(int userId) {
+		return userAccountRepository.findById(userId).get();
+	}
 
 }

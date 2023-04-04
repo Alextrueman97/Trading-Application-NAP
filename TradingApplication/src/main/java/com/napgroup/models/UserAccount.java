@@ -1,108 +1,80 @@
 package com.napgroup.models;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+
+import java.util.Collections;
+import java.util.Collection;
+
+// to implement our getters and setters we'll be using lombok
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
+
+// we implement userdetails for security
 @Entity
 @Table (name = "user_account")
-public class UserAccount {
+public class UserAccount implements UserDetails {
 
+	// here we're defining a couple of properties
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//Auto Increment
-	@Column(name = "account_id")
-	private int accountId;
-	@Column(name = "username", unique = true, columnDefinition = "VARCHAR(25)")
-	private String username; 	//unique
-	@Column(name = "email_address", unique = true, columnDefinition = "VARCHAR(50)")
-	private String emailAddress; //unique
-	@Column(name = "password", columnDefinition = "VARCHAR(25)")
-	private String password;
+	@SequenceGenerator(
+			name = "UserAccount_sequence",
+			sequenceName = "UserAccount_sequence",
+			allocationSize = 1
+	)
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "UserAccount_sequence"
+	)
+	private Long accountId;
 	@Column(name = "first_name", columnDefinition = "VARCHAR(25)")
 	private String firstName;
 	@Column(name = "last_name", columnDefinition = "VARCHAR(25)")
 	private String lastName;
+	@Column(name = "email_address", unique = true, columnDefinition = "VARCHAR(50)")
+	private String emailAddress;
+	@Column(name = "password", columnDefinition = "VARCHAR(25)")
+	private String password;
+	@Enumerated(EnumType.STRING)
+	private UserAccountRole userAccountRole;
+
 	@OneToMany(mappedBy = "accountId")
 	private List<AskOrders> askOrderTable;
 	@OneToMany(mappedBy = "accountId")
 	private List<BidOrders> bidOrderTable;
-	
-	public UserAccount() {
-		super();
-	}
 
-	
-	public UserAccount(int accountId, String username, String emailAddress, String password, String firstName, String lastName) {
-		super();
-		this.accountId = accountId;
-		this.username = username;
-		this.emailAddress = emailAddress;
-		this.password = password;
+
+	private Boolean locked = false; // check wether the account is locked
+	private Boolean enabled =false; // false because we only want to enable the user wants the confirm their email
+
+
+
+	public UserAccount(String firstName,
+					   String lastName,
+					   String emailAddress,
+					   String password,
+					   UserAccountRole userAccountRole
+	) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-	}
-	
-	public UserAccount(String username, String emailAddress, String password, String firstName, String lastName) {
-		super();
-		this.username = username;
 		this.emailAddress = emailAddress;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public int getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.userAccountRole = userAccountRole;
+		this.locked = locked;
+		this.enabled = enabled;
 	}
 
 	public List<AskOrders> getAskOrderTable() {
@@ -124,13 +96,58 @@ public class UserAccount {
 		this.bidOrderTable = bidOrderTable;
 	}
 
+	// the application user has the authority to perform certain action( access certain api endpoints)
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities(){
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userAccountRole.name());
+		return Collections.singletonList(authority);
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return emailAddress;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName(){
+		return lastName;
+	}
+
+	@Override
+	public boolean isAccountNonExpired(){
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return !locked;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired(){
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
 
 	@Override
 	public String toString() {
-		return "UserAccount [accountId=" + accountId + ", username=" + username + ", emailAddress=" + emailAddress
+		return "UserAccount [accountId=" + accountId + ", emailAddress=" + emailAddress
 				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + "]" + ", askOrders= " + askOrderTable.size() + ", askOrders= " + bidOrderTable.size();
 	}	
 	
 
 	
 }
+

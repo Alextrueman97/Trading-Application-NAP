@@ -3,8 +3,9 @@ package com.napgroup.services;
 import com.napgroup.models.UserAccount;
 
 public interface UserAccountService {
-		
-	public UserAccount addUserAccount(UserAccount user);
+
+	public String signUpUser(UserAccount userAccount);
+	public int enableAppUser(String email);
 	
 }
 

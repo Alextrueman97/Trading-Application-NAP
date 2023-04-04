@@ -8,10 +8,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.napgroup.models.AskOrders;
 import com.napgroup.models.Company;
 import com.napgroup.models.OrderBook;
 import com.napgroup.models.OrderStatus;
@@ -26,6 +27,7 @@ import com.napgroup.models.UserAccount;
 import com.napgroup.services.AskOrdersService;
 import com.napgroup.services.BidOrderService;
 import com.napgroup.services.CompanyService;
+import com.napgroup.services.ExternalBankingService;
 import com.napgroup.services.OrderTableSuperService;
 import com.napgroup.services.SortServiceImpl;
 import com.napgroup.services.StockService;
@@ -50,8 +52,20 @@ public class OrderTableTestController {
 	@Autowired
 	private SortServiceImpl sortServiceImpl;
 	
-	@GetMapping("/")
-	public String test() {
+	@Autowired
+	private ExternalBankingService externalBankingService;
+	
+	@GetMapping("/testExternalBanking")
+	public String test(Model model) {
+		HttpStatus test = externalBankingService.login("07864700009", "pass", 1000002);
+		model.addAttribute("status", test.toString());
+		return "index";
+	}
+	
+	@GetMapping("/testExternalBankingWithdraw")
+	public String testWithdraw(Model model) {
+		HttpStatus test = externalBankingService.withdraw("07864700009", "pass", 1000002, 10);
+		model.addAttribute("status", test.toString());
 		return "index";
 	}
 	

@@ -1,5 +1,7 @@
 package com.napgroup.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +19,8 @@ public interface StocksRepository extends JpaRepository<Stocks, Integer> {
 	@Transactional
 	@Modifying
 	public int updateStockAmountById(@Param("stockId") int stockId, @Param("stockAmount") int stockAmount);
+	
+	@Query("SELECT s.stockId, c.companyName, c.companySymbol, s.region, s.stockAmount FROM Stocks s JOIN s.companyId c")
+	public List<Object[]> findAllStocksWithCompanyInfo();
 	
 }

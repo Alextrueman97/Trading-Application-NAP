@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Account</title>
+
+    <style type="text/css">
+
+        body{
+            padding-top:85px;
+            padding-left:10px;
+            background-color: #006494;
+            color: white;
+        }
+        .stocks-table h1{
+            text-align: center;
+        }
+        .table{
+            margin: auto;
+            width:80%
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark
+     bg-dark">
+            <!-- put image logo below-->
+            <img src="https://p1.hiclipart.com/preview/223/551/659/social-media-logo-trade-board-of-directors-company-trading-company-brand-ambassador-management-parent-company-png-clipart.jpg
+        " width="50" height="50" />
+            <a href="/Dashboard" class=" px-2 navbar-brand mb-0 h1">
+                NapTrading
+            </a>
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link"></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/Account" class="nav-link">
+                            Account
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href= "/TradeAndSell" class="nav-link">
+                            Trade and Sell
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href= "/MyStocks" class="nav-link">
+                            My Stocks
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href= "/history" class="nav-link">
+                            My History
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav-bar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a href="/logout" class="nav-link">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="userAccountInfo">
+    <h1>Account Information</h1>
+      <p><strong>Username:</strong> <span th:text="${username}"></span></p>
+      <p><strong>First Name:</strong> <span th:text="${firstName}"></span></p>
+      <p><strong>Last Name:</strong> <span th:text="${lastName}"></span></p>
+      <p><strong>Email Address:</strong> <span th:text="${emailAddress}"></span></p>
+      <p><strong>Balance:</strong> <span th:text="${balance}"></span></p>  
+    
+    </div>
+
+</body>
+</html>

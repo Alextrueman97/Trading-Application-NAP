@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.napgroup.models.OrderStatus;
@@ -25,7 +26,10 @@ public class SortServiceImpl implements SortService {
 	@Autowired
 	private BidOrderService bidOrdersService;
 	@Autowired
+	@Qualifier("orderTableSuperServiceImpl")
 	private OrderTableSuperService orderTableSuperService;
+	
+	public SortServiceImpl() {}
 	
 	public SortServiceImpl(Sort sort) {
 		this.sort = sort;

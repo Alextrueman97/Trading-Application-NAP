@@ -8,6 +8,8 @@ public class Sort {
 	private Map<Region, OrderBook> orderBooks;
 	private Company company;
 	
+	public Sort() {}
+	
 	public Sort(Map<Region, OrderBook> orderBooks, Company company) {
 		super();
 		this.orderBooks = orderBooks;

@@ -1,5 +1,7 @@
 package com.napgroup.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public Stocks addStock(Stocks stock) {
 		return stocksRepository.save(stock);
+	}
+	
+	@Override
+	public List<Object[]> findAllStocksWithCompanyInfo(){
+		return stocksRepository.findAllStocksWithCompanyInfo();
 	}
 	
 

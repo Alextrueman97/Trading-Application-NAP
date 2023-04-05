@@ -52,6 +52,19 @@ public class OrderTableSuper {
 		this.saleType = saleType;
 		this.saleDate = saleDate;
 	}
+	
+	public OrderTableSuper(UserAccount accountId, Stocks stockId, double salePrice, int stockAmount,
+			OrderStatus orderStatus, OrderType orderType, SaleType saleType, LocalDateTime saleDate) {
+		super();
+		this.accountId = accountId;
+		this.stockId = stockId;
+		this.salePrice = salePrice;
+		this.stockAmount = stockAmount;
+		this.orderStatus = orderStatus;
+		this.orderType = orderType;
+		this.saleType = saleType;
+		this.saleDate = saleDate;
+	}
 
 	public OrderTableSuper(Stocks stockId, double salePrice, int stockAmount, OrderStatus orderStatus,
 			OrderType orderType, SaleType saleType, LocalDateTime saleDate) {

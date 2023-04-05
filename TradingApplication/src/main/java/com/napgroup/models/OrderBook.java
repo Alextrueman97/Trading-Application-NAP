@@ -6,6 +6,8 @@ public class OrderBook {
 	
 	private List<OrderTableSuper> orders;
 
+	public OrderBook() {}
+	
 	public OrderBook(List<OrderTableSuper> orders) {
 		super();
 		this.orders = orders;

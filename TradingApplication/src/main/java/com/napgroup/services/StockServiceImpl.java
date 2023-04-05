@@ -21,6 +21,11 @@ public class StockServiceImpl implements StockService {
 	public Stocks addStock(Stocks stock) {
 		return stocksRepository.save(stock);
 	}
+
+	@Override
+	public Stocks findStockById(int stockId) {
+		return stocksRepository.findById(stockId).get();
+	}
 	
 
 }

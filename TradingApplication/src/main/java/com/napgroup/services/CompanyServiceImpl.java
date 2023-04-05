@@ -17,4 +17,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyRepository.save(company);
 	}
 
+	@Override
+	public Company findCompanyById(int companyId) {
+		return companyRepository.findById(companyId).get();
+	}
+
 }

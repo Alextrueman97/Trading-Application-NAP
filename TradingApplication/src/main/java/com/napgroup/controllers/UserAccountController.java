@@ -54,7 +54,7 @@ public String register(@RequestParam("firstName") String firstName,
 					   @RequestParam("password") String password,
 					   @RequestParam("confirmPassword") String confirmPassword
 					   ) {
-	UserAccount ua = new UserAccount(username, emailAddress, password, firstName, lastName);
+	UserAccount ua = new UserAccount(username, emailAddress, password, firstName, lastName, 0);
 	try {
 		if(!password.equals(confirmPassword)){
 			return "/Register";
@@ -87,11 +87,12 @@ public String login(@RequestParam("emailAddress") String emailAddress,
 		model.addAttribute("emailAddress", loggedInUser.getEmailAddress());
 		model.addAttribute("firstName", loggedInUser.getFirstName());
 		model.addAttribute("lastName", loggedInUser.getLastName());
+		model.addAttribute("balance", loggedInUser.getBalance());
 		
 		return "redirect:/Dashboard";
 	}
 	else {
-		return "Login";
+		return "/Login";
 	}
 }
 

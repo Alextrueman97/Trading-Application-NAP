@@ -52,23 +52,19 @@ public class OrderTableTestController {
 	@Autowired
 	private SortServiceImpl sortServiceImpl;
 	
-	@Autowired
-	private ExternalBankingService externalBankingService;
-	
-	@GetMapping("/testExternalBanking")
-	public String test(Model model) {
-		HttpStatus test = externalBankingService.login("07864700009", "pass", 1000002);
-		model.addAttribute("status", test.toString());
-		return "index";
-	}
-	
-	@GetMapping("/testExternalBankingWithdraw")
-	public String testWithdraw(Model model) {
-		HttpStatus test = externalBankingService.withdraw("07864700009", "pass", 1000002, 10);
-		model.addAttribute("status", test.toString());
-		return "index";
-	}
-	
+	/*
+	 * @Autowired private ExternalBankingService externalBankingService;
+	 */
+	/*
+	 * @GetMapping("/testExternalBanking") public String test(Model model) {
+	 * HttpStatus test = externalBankingService.login("07864700009", "pass",
+	 * 1000002); model.addAttribute("status", test.toString()); return "index"; }
+	 * 
+	 * @GetMapping("/testExternalBankingWithdraw") public String testWithdraw(Model
+	 * model) { HttpStatus test = externalBankingService.withdraw("07864700009",
+	 * "pass", 1000002, 10); model.addAttribute("status", test.toString()); return
+	 * "index"; }
+	 */
 	@GetMapping("/testAskOrders")
 	public String findAskOrdersById(){
 

@@ -1,5 +1,7 @@
 package com.napgroup.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Company findCompanyById(int companyId) {
 		return companyRepository.findById(companyId).get();
+	}
+	
+	@Override 
+	public List<Company> findAllCompanies(){
+		return companyRepository.findAll();
 	}
 
 }

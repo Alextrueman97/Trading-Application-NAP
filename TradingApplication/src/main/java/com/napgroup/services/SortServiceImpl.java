@@ -35,15 +35,11 @@ public class SortServiceImpl implements SortService {
 	private Sort sort;
 	
 	public SortServiceImpl() {}
-<<<<<<< HEAD
 
-	public void setSort(Sort sort) {
-=======
+
+	public void setSort(Sort sort) {}
 	
-	public SortServiceImpl(Sort sort) {
->>>>>>> front-end
-		this.sort = sort;
-	}
+	
 	
 	public void updateSort() {
 		Map<Region, OrderBook> orderBooks = sort.getOrderBooks();

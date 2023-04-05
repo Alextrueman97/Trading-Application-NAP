@@ -14,6 +14,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Intege
 	
 	UserAccount findByEmailAddress(String emailAddress);
 	
-	@Query(value = "select new UserAccount(ua.accountId, ua.username, ua.emailAddress, ua.password, ua.firstName, ua.lastName) from UserAccount ua where ua.emailAddress = :emailAddress and ua.password = :password")
-	public UserAccount login(@Param("emailAddress" )String emailAddress, @Param("password") String password);;
+	@Query(value = "select new UserAccount(ua.accountId, ua.username, ua.emailAddress, ua.password, ua.firstName, ua.lastName, ua.balance) from UserAccount ua where ua.emailAddress = :emailAddress and ua.password = :password")
+	public UserAccount login(@Param("emailAddress" )String emailAddress, @Param("password") String password);
 }

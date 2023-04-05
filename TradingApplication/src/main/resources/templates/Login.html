@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Login</title>
+
+    <style type="text/css">
+
+        body {
+            padding-top: 300px;
+            background: #006494;
+        }
+
+        .form-login {
+            margin: 0 auto;
+            max-width: 400px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 3%;
+        }
+
+        .form-login h2 {
+            text-align: center;
+        }
+        
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark
+     bg-dark">
+            <!-- put image logo below-->
+            <img src="https://p1.hiclipart.com/preview/223/551/659/social-media-logo-trade-board-of-directors-company-trading-company-brand-ambassador-management-parent-company-png-clipart.jpg
+        " width="50" height="50" />
+            <a href="http://127.0.0.1:5500/web-pages/Dashboard.html" class="navbar-brand mb-0 h1">
+                NapTrading
+            </a>
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class=" nav-item active">
+                        <a href="/Login" class="nav-link">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/Register" class="nav-link">
+                            Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form action="/LoginForm" method="POST" class="form-login">
+            <h2>Login</h2>
+            
+                
+                    <div class="py-2 form-group">
+                        <input type="text" class="form-control" name="emailAddress" placeholder="Email Address">
+                    </div>
+                    <div class="py-2 form-group">
+                        <input type= "password" class="form-control" name="password" placeholder="Password">
+                    </div> 
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="">
+                            I am not a robot!
+                        </label>
+                    </div>
+                    <input type="submit" style="width: -webkit-fill-available;"
+                    class="btn btn-success btn-block" name="" value="Login">
+            
+        </form>
+    </div>
+
+</body>
+</html>

@@ -32,13 +32,15 @@ public class UserAccount {
 	private List<AskOrders> askOrderTable;
 	@OneToMany(mappedBy = "accountId")
 	private List<BidOrders> bidOrderTable;
+	@Column(name = "balance")
+	private double balance;
 	
 	public UserAccount() {
 		super();
 	}
 
 	
-	public UserAccount(int accountId, String username, String emailAddress, String password, String firstName, String lastName) {
+	public UserAccount(int accountId, String username, String emailAddress, String password, String firstName, String lastName, double balance) {
 		super();
 		this.accountId = accountId;
 		this.username = username;
@@ -46,6 +48,23 @@ public class UserAccount {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.balance = balance;
+	}
+	
+	public UserAccount(String emailAddress, String password) {
+		super();
+		this.emailAddress = emailAddress;
+		this.password = password;
+	}
+	
+	public UserAccount(String username, String emailAddress, String password, String firstName, String lastName, double balance) {
+		super();
+		this.username = username;
+		this.emailAddress = emailAddress;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.balance = balance;
 	}
 	
 	public UserAccount(String username, String emailAddress, String password, String firstName, String lastName) {
@@ -123,12 +142,20 @@ public class UserAccount {
 	public void setBidOrderTable(List<BidOrders> bidOrderTable) {
 		this.bidOrderTable = bidOrderTable;
 	}
+	
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 
 
 	@Override
 	public String toString() {
 		return "UserAccount [accountId=" + accountId + ", username=" + username + ", emailAddress=" + emailAddress
-				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + "]" + ", askOrders= " + askOrderTable.size() + ", askOrders= " + bidOrderTable.size();
+				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + "]" + ", askOrders= " + askOrderTable.size() + ", askOrders= " + bidOrderTable.size() + "balance=" + balance;
 	}	
 	
 

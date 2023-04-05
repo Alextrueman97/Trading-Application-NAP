@@ -1,6 +1,8 @@
 package com.napgroup.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.napgroup.models.UserAccount;
@@ -8,4 +10,10 @@ import com.napgroup.models.UserAccount;
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
 
+	UserAccount findByUsername(String username);
+	
+	UserAccount findByEmailAddress(String emailAddress);
+	
+	@Query(value = "select new UserAccount(ua.accountId, ua.username, ua.emailAddress, ua.password, ua.firstName, ua.lastName) from UserAccount ua where ua.emailAddress = :emailAddress and ua.password = :password")
+	public UserAccount login(@Param("emailAddress" )String emailAddress, @Param("password") String password);;
 }

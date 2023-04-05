@@ -35,19 +35,14 @@ public class UserAccountServiceImpl implements UserAccountService {
 //		return null;
 //	}
 	
+	
+	
 	public UserAccount register(UserAccount userAccount) {
 		return userAccountRepository.save(userAccount);
 	}
 	
-<<<<<<< HEAD
-	public UserAccount findUserById(int userId) {
-		return userAccountRepository.findById(userId).get();
-	}
-
-=======
 	public UserAccount login(String emailAddress, String password) {
 		return userAccountRepository.login(emailAddress, password);
 	}
 	
->>>>>>> front-end
 }

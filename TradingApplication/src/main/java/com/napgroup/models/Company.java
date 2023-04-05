@@ -37,6 +37,13 @@ public class Company {
 		this.stocks = stocks;
 	}
 	
+	public Company(int companyId, String companySymbol, String companyName) {
+		super();
+		this.companyId = companyId;
+		this.companySymbol = companySymbol;
+		this.companyName = companyName;
+	}
+	
 	public Company(String companySymbol, String companyName, List<Stocks> stocks) {
 		super();
 		this.companySymbol = companySymbol;

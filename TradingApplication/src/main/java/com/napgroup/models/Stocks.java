@@ -49,6 +49,15 @@ public class Stocks {
 		this.bidOrderTable = bidOrderTable;
 	}
 	
+	public Stocks(int stockId, Company companyId, double stockPrice, Region region, int stockAmount) {
+		super();
+		this.stockId = stockId;
+
+		this.companyId = companyId;
+		this.stockPrice = stockPrice;
+		this.region = region;
+		this.stockAmount = stockAmount;
+	}
 	
 	public Stocks(Company companyId, double stockPrice, Region region, int stockAmount, List<AskOrders> askOrderTable, List<BidOrders> bidOrderTable) {
 		super();

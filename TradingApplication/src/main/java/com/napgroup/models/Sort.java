@@ -7,14 +7,9 @@ public class Sort {
 	// REGION -> orderBook for that region
 	private Map<Region, OrderBook> orderBooks;
 	private Company company;
-	
-<<<<<<< HEAD
-	public Sort() {
-		super();
-	}
-=======
+
 	public Sort() {}
->>>>>>> front-end
+
 	
 	public Sort(Map<Region, OrderBook> orderBooks, Company company) {
 		super();

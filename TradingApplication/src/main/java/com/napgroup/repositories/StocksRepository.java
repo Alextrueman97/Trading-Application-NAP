@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.napgroup.models.Company;
+import com.napgroup.models.Region;
 import com.napgroup.models.Stocks;
 
 import jakarta.transaction.Transactional;
@@ -22,5 +24,8 @@ public interface StocksRepository extends JpaRepository<Stocks, Integer> {
 	
 	@Query("SELECT s.stockId, c.companyName, c.companySymbol, s.region, s.stockAmount FROM Stocks s JOIN s.companyId c")
 	public List<Object[]> findAllStocksWithCompanyInfo();
+	
+	@Query("select new Stocks(s.stockId, s.companyId, s.stockPrice, s.region, s.stockAmount) from Stocks s where s.companyId = :company and s.region = :region")
+	public Stocks findStockByCompanyAndRegion(@Param("company") Company company, @Param("region") Region region); 
 	
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Buy</title>
+<style type="text/css">
+body {
+	padding-top: 85px;
+	padding-left: 10px;
+	background-color: #006494;
+	color: white;
+}
+
+.stocks-table h1 {
+	text-align: center;
+}
+
+.table {
+	margin: auto;
+	width: 80%
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+	<header>
+		<nav
+			class="navbar fixed-top navbar-expand-md navbar-dark
+     bg-dark">
+			<!-- put image logo below-->
+			<img
+				src="https://p1.hiclipart.com/preview/223/551/659/social-media-logo-trade-board-of-directors-company-trading-company-brand-ambassador-management-parent-company-png-clipart.jpg
+        "
+				width="50" height="50" /> <a href="/Dashboard"
+				class=" px-2 navbar-brand mb-0 h1"> NapTrading </a>
+			<button type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNav" class="navbar-toggler"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"><a href="#" class="nav-link"></a>
+					</li>
+					<li class="nav-item active"><a href="/Account"
+						class="nav-link"> Account </a></li>
+					<li class="nav-item active"><a href="/TradeAndSell"
+						class="nav-link"> Trade and Sell </a></li>
+					<li class="nav-item active"><a href="MyStocks"
+						class="nav-link"> My Stocks </a></li>
+					<li class="nav-item active"><a href="/history"
+						class="nav-link"> My History </a></li>
+				</ul>
+				<ul class="nav-bar-nav ms-auto">
+					<li class="nav-item active"><a href="/logout" class="nav-link">
+							Logout </a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<div>
+		<form method="POST" class="d-flex flex-column justify-content-center">
+			<label for="company">Company</label> 
+			<select id="company" name="company" size="3">
+				<option th:each="company: ${companies}" th:value="${company.companyName}" th:text="${company.companyName}"></option>
+			</select> <br> 
+			<label for="region">Company</label> <select id="region"
+				name="region" size="3">
+				<option th:each="region: ${regions}" th:value="${region}" th:text="${region}"></option>
+			</select> <br> 
+			Stock Amount<input type="text" name="stock-amount"
+				style="margin: 5px;"> <br> 
+			<label for="order-type">Order Type</label>
+			<select id="order-type" name="order-type" size="3">
+				<option value="MARKET">Market</option>
+				<option value="LIMIT">Limit</option>
+			</select> <br> 
+			Price per stock<input type="text" name="price" style="margin: 5px;">
+			<br>
+			<button type="submit" class="btn btn-secondary mb-4" name="submit"
+				value="Submit order" style="margin: 5px;">Submit order</button>
+		</form>
+
+
+	</div>
+</body>
+</html>

@@ -83,22 +83,22 @@ public class OrderTableTestController {
 		return "order_table";
 	}
 	
-	@GetMapping("/testExecuteTrade")
-	public String executeTrade(){
-		
-		Map<Region, OrderBook> orderBooks = new HashMap<>();
-		Company company = companyService.findCompanyById(1);
-		Sort sort = new Sort(orderBooks, company);
-		sortServiceImpl.setSort(sort);
-		sortServiceImpl.updateSort();
-		UserAccount user = userAccountService.findUserById(1);
-		Stocks stocks = stockService.findStockById(2);
-		OrderTableSuper order = new OrderTableSuper(user, stocks, 90, 60, OrderStatus.PENDING, OrderType.MARKET, SaleType.ASK, LocalDateTime.now());
-		// OrderTableSuper order = new OrderTableSuper(user, stocks, 300, 50, OrderStatus.PENDING, OrderType.LIMIT, SaleType.BID, LocalDateTime.now());
-		sortServiceImpl.executeMatchAndTrade(order, Region.SSE);
-		
-		return "order_table";
-	}
+//	@GetMapping("/testExecuteTrade")
+//	public String executeTrade(){
+//		
+//		Map<Region, OrderBook> orderBooks = new HashMap<>();
+//		Company company = companyService.findCompanyById(1);
+//		Sort sort = new Sort(orderBooks, company);
+//		sortServiceImpl.setSort(sort);
+//		sortServiceImpl.updateSort();
+//		UserAccount user = userAccountService.findUserById(1);
+//		Stocks stocks = stockService.findStockById(2);
+//		OrderTableSuper order = new OrderTableSuper(user, stocks, 90, 60, OrderStatus.PENDING, OrderType.MARKET, SaleType.ASK, LocalDateTime.now());
+//		// OrderTableSuper order = new OrderTableSuper(user, stocks, 300, 50, OrderStatus.PENDING, OrderType.LIMIT, SaleType.BID, LocalDateTime.now());
+//		sortServiceImpl.executeMatchAndTrade(order, Region.SSE);
+//		
+//		return "order_table";
+//	}
 	
 //	@GetMapping("/testBidOrders")
 //	public List<OrderTable> findBidOrdersById(){

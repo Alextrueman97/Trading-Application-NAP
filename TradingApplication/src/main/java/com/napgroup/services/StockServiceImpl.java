@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.napgroup.models.Company;
+import com.napgroup.models.Region;
 import com.napgroup.models.Stocks;
 import com.napgroup.repositories.StocksRepository;
 
@@ -34,5 +36,9 @@ public class StockServiceImpl implements StockService {
 		return stocksRepository.findAllStocksWithCompanyInfo();
 	}
 	
+	@Override
+	public Stocks findStockByCompanyAndRegion(Company company, Region region)  {
+		return stocksRepository.findStockByCompanyAndRegion(company, region);
+	}
 
 }

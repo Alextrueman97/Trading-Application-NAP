@@ -15,7 +15,7 @@
     <style type="text/css">
 
         body {
-            padding-top: 300px;
+        	padding-top: 30vh;
             background: #006494;
         }
 
@@ -30,9 +30,7 @@
         .form-login h2 {
             text-align: center;
         }
-        
-
-
+       
     </style>
 </head>
 
@@ -67,20 +65,18 @@
         </nav>
     </header>
 
-    <div class="container">
-        <form action="/LoginForm" method="POST" class="form-login">
-            <h2>Login</h2>
-            
-                
+    <div class="d-flex flex-row justify-content-center">
+        <form action="/LoginForm" method="POST" class="form-login d-flex flex-column justify-content-center" style="width:50vw;">
+            <h1 class="display-3 text-center">Login</h1>
                     <div class="py-2 form-group">
                         <input type="text" class="form-control" name="emailAddress" placeholder="Email Address">
                     </div>
                     <div class="py-2 form-group">
                         <input type= "password" class="form-control" name="password" placeholder="Password">
                     </div> 
-                    <div class="form-group">
+                    <div class="form-group py-2">
                         <label>
-                            <input type="checkbox" name="">
+                            <input type="checkbox" name="" required>
                             I am not a robot!
                         </label>
                     </div>

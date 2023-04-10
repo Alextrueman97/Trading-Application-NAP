@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.napgroup.models.UserAccount;
+import com.napgroup.services.ExternalBankingService;
 import com.napgroup.services.UserAccountService;
 import com.napgroup.services.UserAccountServiceImpl;
 
@@ -29,7 +30,9 @@ import jakarta.servlet.http.HttpSession;
 public class UserAccountController {
 
 	@Autowired
-	private UserAccountServiceImpl userAccountServiceImpl;
+	private UserAccountService userAccountServiceImpl;
+	@Autowired
+	private ExternalBankingService externalBankingService;
 
 //	public UserAccountController(UserAccountServiceImpl userAccountService) {
 //		this.userAccountService = userAccountService;
@@ -97,19 +100,47 @@ public class UserAccountController {
 	}
 
 	@GetMapping("/Account")
-	public String account(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("loggedInUser") != null) {
-			UserAccount loggedInUser = (UserAccount) session.getAttribute("loggedInUser");
+	public String account(HttpServletRequest request, HttpSession session, Model model) {
+		if (session.getAttribute("loggedInUser") != null) {
+			UserAccount user = (UserAccount) session.getAttribute("loggedInUser");
+			UserAccount loggedInUser = userAccountServiceImpl.findUserByUserId(user.getAccountId()).get();
 			model.addAttribute("accountId", loggedInUser.getAccountId());
 			model.addAttribute("username", loggedInUser.getUsername());
 			model.addAttribute("emailAddress", loggedInUser.getEmailAddress());
 			model.addAttribute("firstName", loggedInUser.getFirstName());
 			model.addAttribute("lastName", loggedInUser.getLastName());
+			model.addAttribute("balance", loggedInUser.getBalance());
 			return "/Account";
 		} else {
 			return "redirect:/Login";
 		}
 	}
-
+	
+	@GetMapping("/AddMoney")
+	public String viewAddMoney(Model model) {
+		return "AddMoney";
+	}
+	
+	@PostMapping("/AddMoney")
+	public String addMoney(@RequestParam("phone-no") String phoneNo, @RequestParam("pass") String pass, @RequestParam("account-no") long accountNo, 
+			@RequestParam("amount") double amount, Model model, HttpSession session) {
+		
+		UserAccount user = (UserAccount) session.getAttribute("loggedInUser");
+		// UserAccount user = userAccountServiceImpl.login("nk@gmail.com", "pass");
+		HttpStatus login = externalBankingService.login(phoneNo, pass, accountNo);
+		if(login == HttpStatus.OK) {
+			HttpStatus withdraw = externalBankingService.withdraw(phoneNo, pass, accountNo, amount);
+			if(withdraw == HttpStatus.OK) {
+				double currentBalance = user.getBalance();
+				userAccountServiceImpl.updateUserBalance(currentBalance + amount, user.getAccountId());
+				// user.setBalance(amount + currentBalance);
+				// session.setAttribute("loggedInUser", user);
+				return "redirect:/Account";
+			}
+		}
+		String status = "Unable to withdraw money from account- please check your details and that you have enough funds available";
+		model.addAttribute("updateStatus", status);
+		return viewAddMoney(model);
+	}
+	
 }

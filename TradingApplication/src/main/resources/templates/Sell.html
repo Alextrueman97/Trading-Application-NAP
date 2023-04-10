@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	
+	<title>Sell</title>
+	
+	<style type="text/css">
+		body {
+			padding-top: 85px;
+			padding-left: 10px;
+			background-color: #006494;
+			color: white;
+		}
+	</style>
 </head>
 <body>
-
+	<header>
+		<nav
+			class="navbar fixed-top navbar-expand-md navbar-dark
+     bg-dark">
+			<!-- put image logo below-->
+			<img
+				src="https://p1.hiclipart.com/preview/223/551/659/social-media-logo-trade-board-of-directors-company-trading-company-brand-ambassador-management-parent-company-png-clipart.jpg
+        "
+				width="50" height="50" /> <a href="/Dashboard"
+				class=" px-2 navbar-brand mb-0 h1"> NapTrading </a>
+			<button type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNav" class="navbar-toggler"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"><a href="#" class="nav-link"></a>
+					</li>
+					<li class="nav-item active"><a href="/Account"
+						class="nav-link"> Account </a></li>
+					<li class="nav-item active"><a href="/Buy"
+						class="nav-link"> Buy </a></li>
+					<li class="nav-item active"><a href="/UserStocks"
+						class="nav-link"> My Stocks </a></li>
+					<li class="nav-item active"><a href="/History"
+						class="nav-link"> My History </a></li>
+				</ul>
+				<ul class="nav-bar-nav ms-auto">
+					<li class="nav-item active"><a href="/logout" class="nav-link">
+							Logout </a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<h1 class="display-3 text-center">Sell Stocks</h1>
+	<div class="d-flex flex-row justify-content-center">
+		<form method="POST" class="d-flex flex-column justify-content-center">
+			<br> Stock Amount<input type="number" th:max="${amount}" name="stock-amount"
+				style="margin: 5px;" required>
+			<label for="order-type">Order Type</label> 
+			<select id="order-type" name="order-type" size="3" style="margin: 5px;" required>
+				<option value="MARKET">Market</option>
+				<option value="LIMIT">Limit</option>
+			</select> 
+			<br> Price per stock<input type="text" name="price" style="margin: 5px;" required> <br>
+			<button type="submit" class="btn btn-secondary mb-4" name="submit"
+				value="Submit order" style="margin: 5px; background-color: black;">Submit order</button>
+		</form>
+	</div>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	
-	<title>Buy</title>
+	<title>Add Money</title>
 	
 	<style type="text/css">
 		body {
@@ -42,58 +42,34 @@
 					</li>
 					<li class="nav-item active"><a href="/Account"
 						class="nav-link"> Account </a></li>
-					<li class="nav-item active"><a href="/Buy"
+					<li class="nav-item active">
+					<a href="/Buy"
 						class="nav-link"> Buy </a></li>
-					<li class="nav-item active"><a href="/UserStocks"
+					<li class="nav-item active">
+					<a href="UserStocks"
 						class="nav-link"> My Stocks </a></li>
-					<li class="nav-item active"><a href="/History"
+					<li class="nav-item active">
+					<a href="/History"
 						class="nav-link"> My History </a></li>
 				</ul>
 				<ul class="nav-bar-nav ms-auto">
-					<li class="nav-item active">
-					<a href="/logout" class="nav-link">
+					<li class="nav-item active"><a href="/logout" class="nav-link">
 							Logout </a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
-	<h1 class="display-3 text-center">Buy Stocks</h1>
+	<h1 class="display-3 text-center">Add Money</h1>
 	<div class="d-flex flex-row justify-content-center">
 		<form method="POST" class="d-flex flex-column justify-content-center">
-			<label for="company">Company</label> 
-			<select id="company" name="company" size="3" style="margin: 5px;" required>
-				<option th:each="company: ${companies}" th:value="${company.companyName}" th:text="${company.companyName}"></option>
-			</select> <br> 
-			<label for="region">Region</label> 
-			<select id="region" name="region" size="3" style="margin: 5px;" required>
-				<option th:each="region: ${regions}" th:value="${region}" th:text="${region}"></option>
-			</select> <br> 
-			Stock Amount<input type="text" name="stock-amount" style="margin: 5px;" required> <br> 
-			<label for="order-type">Order Type</label>
-			<span th:if="${setPrice > 0}" style="margin: 5px;">
-				<select id="order-type" name="order-type" size="3" style="width:-moz-available" required>
-					<option value="MARKET">Market</option>
-				</select> <br> 
-			</span>
-	  		<span th:unless="${setPrice > 0}" style="margin: 5px;">
-				<select id="order-type" name="order-type" size="3" style="width:-moz-available" required>
-					<option value="MARKET">Market</option>
-					<option value="LIMIT">Limit</option>
-				</select> <br> 
-			</span>
-			
-			Price per stock
-			<span th:if="${setPrice > 0}" style="margin: 5px;">
-				<input th:value="${setPrice}" type="text" name="price" style="width:-moz-available" disabled>
-			</span>
-	  		<span th:unless="${setPrice > 0}" style="margin: 5px;">
-				<input type="text" name="price" style="width:-moz-available" required>
-			</span>
-			<br>
-			<div th:text="${error}"></div>
+			Account Number<input type="text" name="account-no" style="margin: 5px;" required> <br> 
+			Phone Number<input type="text" name="phone-no" style="margin: 5px;" required> <br>
+			Bank Account Password<input type="password" name="pass" style="margin: 5px;" required> <br> 
+			Amount £<input type="text" name="amount" style="margin: 5px;" required> <br>
 			<button type="submit" class="btn btn-secondary mb-4" name="submit"
-				value="Submit order" style="margin: 5px; background-color: black;">Submit order</button>
+				value="Add Money" style="margin: 5px; background-color:black;">Add Money</button>
 		</form>
 	</div>
+	<div th:text="${updateStatus}"></div>
 </body>
 </html>

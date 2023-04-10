@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<title>My Stocks</title>
+<style type="text/css">
+body {
+	padding-top: 85px;
+	padding-left: 10px;
+	background-color: #006494;
+}
+
+.users-stocks h1 {
+	text-align: center;
+	color: white;
+}
+
+.table {
+	margin: auto;
+	width: 80%;
+	background-color: white;
+}
+</style>
+</head>
+<body>
+	<header>
+		<nav
+			class="navbar fixed-top navbar-expand-md navbar-dark
+     bg-dark">
+			<!-- put image logo below-->
+			<img
+				src="https://p1.hiclipart.com/preview/223/551/659/social-media-logo-trade-board-of-directors-company-trading-company-brand-ambassador-management-parent-company-png-clipart.jpg
+        "
+				width="50" height="50" /> <a href="/Dashboard"
+				class=" px-2 navbar-brand mb-0 h1"> NapTrading </a>
+			<button type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNav" class="navbar-toggler"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"><a href="#" class="nav-link"></a>
+					</li>
+					<li class="nav-item active"><a href="/Account"
+						class="nav-link"> Account </a></li>
+					<li class="nav-item active"><a href="/Buy"
+						class="nav-link"> Buy </a></li>
+					<li class="nav-item active"><a href="/UserStocks"
+						class="nav-link"> My Stocks </a></li>
+					<li class="nav-item active"><a href="/History"
+						class="nav-link"> My History </a></li>
+				</ul>
+				<ul class="nav-bar-nav ms-auto">
+					<li class="nav-item active"><a href="/logout" class="nav-link">
+							Logout </a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<div class="users-stocks">
+		<h1 class="display-3 text-center">My Stocks</h1>
+		<table class="table" style="width: 80%">
+			<thead>
+				<tr>
+					<th style="width: 5%">Company</th>
+					<th style="width: 10%">Company Symbol</th>
+					<th style="width: 5%">Region</th>
+					<th style="width: 8%">Amount of Stocks</th>
+					<th style="width: 5%">Sell</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="stock : ${stocks}">
+
+					<td th:text="${stock.company.companyName}"></td>
+					<td th:text="${stock.company.companySymbol}"></td>
+	    			<td th:text="${stock.region}"></td> 
+					<td th:text="${stock.stockAmount}"></td>
+					<td>
+						<span th:if="${stock.stockAmount == 0}">Sell</span>
+	  					<span th:unless="${stock.stockAmount == 0}">
+							<a th:href="@{/Sell/{company}/{region}/{amount} (company=${stock.company.companyName}, region=${stock.region}, amount=${stock.stockAmount})}" th:text="Sell"></a>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

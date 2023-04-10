@@ -20,13 +20,6 @@
             background-color: #006494;
             color: white;
         }
-        .stocks-table h1{
-            text-align: center;
-        }
-        .table{
-            margin: auto;
-            width:80%
-        }
     </style>
 </head>
 
@@ -60,7 +53,7 @@
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a href= "/MyStocks" class="nav-link">
+                        <a href= "/UserStocks" class="nav-link">
                             My Stocks
                         </a>
                     </li>
@@ -80,14 +73,16 @@
             </div>
         </nav>
     </header>
-    <div class="userAccountInfo">
-    <h1>Account Information</h1>
-      <p><strong>Username:</strong> <span th:text="${username}"></span></p>
-      <p><strong>First Name:</strong> <span th:text="${firstName}"></span></p>
-      <p><strong>Last Name:</strong> <span th:text="${lastName}"></span></p>
-      <p><strong>Email Address:</strong> <span th:text="${emailAddress}"></span></p>
-      <p><strong>Balance:</strong> <span th:text="${balance}"></span></p>  
-    
+    <h1 class="display-3 text-center">Account Information</h1>
+    <div class="d-flex flex-row justify-content-center">
+	    <div class="d-flex flex-column justify-content-center">
+			      <p><strong>Username:</strong> <span th:text="${username}"></span></p>
+			      <p><strong>First Name:</strong> <span th:text="${firstName}"></span></p>
+			      <p><strong>Last Name:</strong> <span th:text="${lastName}"></span></p>
+			      <p><strong>Email Address:</strong> <span th:text="${emailAddress}"></span></p>
+			      <p><strong>Balance:</strong> <span th:text="${balance}"></span>
+			      <a class="btn btn-secondary mb-4" th:href="@{/AddMoney}" style="background-color:black; margin-left:10px;font-size:10px;">Top Up</a></p> 
+	    </div>
     </div>
 
 </body>

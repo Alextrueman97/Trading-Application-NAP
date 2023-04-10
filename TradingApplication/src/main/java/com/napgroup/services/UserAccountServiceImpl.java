@@ -1,5 +1,7 @@
 package com.napgroup.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,21 @@ public class UserAccountServiceImpl implements UserAccountService {
 	
 	public UserAccount login(String emailAddress, String password) {
 		return userAccountRepository.login(emailAddress, password);
+	}
+
+	@Override
+	public int updateUserBalance(double balance, int accountId) {
+		return userAccountRepository.updateUserBalance(balance, accountId);
+	}
+
+	@Override
+	public UserAccount updateUser(UserAccount userAccount) {
+		return userAccountRepository.save(userAccount);
+	}
+
+	@Override
+	public Optional<UserAccount> findUserByUserId(int accountId) {
+		return userAccountRepository.findById(accountId);
 	}
 	
 }

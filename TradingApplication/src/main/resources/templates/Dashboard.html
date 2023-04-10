@@ -27,7 +27,6 @@
             margin: auto;
             width:80%;
             background-color: white;
-            border-radius: 3%;
         }
     </style>
 </head>
@@ -63,12 +62,12 @@
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a href= "MyStocks" class="nav-link">
+                        <a href= "/UserStocks" class="nav-link">
                             My Stocks
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a href= "/history" class="nav-link">
+                        <a href= "/History" class="nav-link">
                             My History
                         </a>
                     </li>
@@ -84,7 +83,7 @@
         </nav>
     </header>
     <div class="stocks-table">
-        <h1>Stocks</h1>
+        <h1 class="display-3 text-center">Dashboard</h1>
         <table class="table" style="width: 80%">
             <thead>
                 <tr>
@@ -92,6 +91,7 @@
                     <th style="width:10%">Company Symbol</th>
                     <th style="width:5%">Region</th>
                     <th style="width:8%">Amount of Stocks</th>
+                    <th style="width:8%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -100,6 +100,9 @@
                     <td th:text="${stock[2]}"></td>
                     <td th:text="${stock[3]}"></td>
                     <td th:text="${stock[4]}"></td>
+                    <td> 
+                    	<a th:href="@{/Buy/{company}/{region}/{amount} (company=${stock[1]}, region=${stock[3]}, amount=${stock[4]})}" th:text="Buy"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>        

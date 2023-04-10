@@ -14,7 +14,7 @@
 
     <style type="text/css">
         body {
-            padding-top: 300px;
+            padding-top: 20vh;
             background: #006494;
         }
 
@@ -65,10 +65,10 @@
         </nav>
     </header>
 
-    <div class="container">
-        <form action="/RegisterProcess" method="POST" class="form-signup"  >
-            <h2>Register</h2>
-            <p>Create your account</p>
+    <div class="d-flex flex-row justify-content-center">
+        <form action="/RegisterProcess" method="POST" class="form-signup d-flex flex-column justify-content-center" style="width:50vw;">
+            <h1 class="display-3 text-center">Register</h1>
+            <p><small>Create your account</small></p>
             <div class="form-group">
                 <div class="row">
                     <div class="py-2 col-md-6">
@@ -88,20 +88,17 @@
             <div class="py-2 form-group">
                 <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
-            <div class="form-group">
+            <div class="py-2 form-group">
                 <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password">
             </div>
-            <div class="form-group">
+            <div class="py-2 form-group">
                 <label>
-                    <input type="checkbox" name="">
+                    <input type="checkbox" name="" required>
                     I accept the <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>
                 </label>
             </div>
-            <input type="submit" style="width: -webkit-fill-available;
-        "class="btn btn-success btn-block" name="" value="Submit">
-
+            <input type="submit" style="width: -webkit-fill-available;" class="btn btn-success btn-block py-2" name="" value="Submit">
         </form>
-
     </div>
 
 

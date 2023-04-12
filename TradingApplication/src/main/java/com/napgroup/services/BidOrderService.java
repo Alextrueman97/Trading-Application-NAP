@@ -16,5 +16,5 @@ public interface BidOrderService extends OrderTableSuperService {
 	public int updateOrderStatus(int orderId, OrderStatus orderStatus);
 	public int updateStockAmount(int orderId, int stockAmount);
 	public int updateStockPrice(int orderId, double salePrice);
-
+	
 }

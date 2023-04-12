@@ -13,5 +13,6 @@ public interface OrderTableSuperService {
 	public List<OrderTableSuper> findCompleteOrdersByAccountId(int accountId);
 	public int findTotalStocksByAccountIdAndCompanyAndRegion(int accountId, int companyId, Region region);
 	public OrderTableSuper addOrder(OrderTableSuper order);
+	public int deleteOrder(OrderTableSuper orderId);
 	
 }

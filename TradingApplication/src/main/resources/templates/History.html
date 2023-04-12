@@ -71,6 +71,7 @@ body {
 		</nav>
 	</header>
 	<div class="users-stocks">
+		<div th:text="${error}"></div>
 		<h1 class="display-3 text-center">Trade History</h1>
 		<table class="table" style="width: 80%">
 			<thead>
@@ -82,6 +83,7 @@ body {
 					<th style="width: 5%">Amount</th>
 					<th style="width: 5%">Price per stock</th>
 					<th style="width: 5%">Status</th>
+					<th style="width: 5%">Edit</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -94,9 +96,16 @@ body {
 	    			<td th:text="${order.stockAmount}"></td> 
 					<td th:text="${order.salePrice}"></td>
 					<td th:text="${order.orderStatus}"></td>
+					<td>
+						<span th:if="${#strings.equals(order.orderStatus, 'COMPLETE') OR #strings.equals(order.orderStatus, 'PARTIAL')}">Unavailable</span>
+						<span th:unless="${#strings.equals(order.orderStatus, 'COMPLETE') OR #strings.equals(order.orderStatus, 'PARTIAL')}">
+							<a th:href="@{/deleteOrder/{saleType}/{orderId} (saleType=${order.saleType}, orderId=${order.orderId})}" th:text="Delete"></a>
+						</span>
+					</td>
 				</tr>
 			</tbody>
 		</table>
+		
 	</div>
 
 </body>

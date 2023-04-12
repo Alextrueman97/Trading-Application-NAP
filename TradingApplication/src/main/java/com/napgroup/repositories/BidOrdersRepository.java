@@ -45,4 +45,8 @@ public interface BidOrdersRepository extends JpaRepository<BidOrders, Integer> {
 	@Modifying(clearAutomatically = true)
 	public int updateStockPrice(@Param("orderId") int orderId, @Param("salePrice") double salePrice);
 	
+	@Query(value = "delete from BidOrders b where b.orderId = :orderId")
+	@Transactional
+	@Modifying
+	public int deleteBidOrder(@Param("orderId") int orderId);
 }

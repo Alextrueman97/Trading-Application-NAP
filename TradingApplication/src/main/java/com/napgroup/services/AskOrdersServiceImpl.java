@@ -81,4 +81,9 @@ public class AskOrdersServiceImpl implements AskOrdersService {
 		return (OrderTableSuper) askOrdersRepository.findById(orderId).get();
 	}
 
+	@Override
+	public int deleteOrder(OrderTableSuper orderId) {
+		return askOrdersRepository.deleteAskOrder(orderId.getOrderId());
+	}
+
 }

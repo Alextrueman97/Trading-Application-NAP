@@ -66,4 +66,15 @@ public class OrderTableSuperServiceImpl implements OrderTableSuperService {
 		this.bidOrderService = bidOrderService;
 	}	
 
+	@Override
+	public int deleteOrder(OrderTableSuper order) {
+		int delete = 0;
+		if(order.getSaleType()== SaleType.ASK) {
+			delete = askOrdersService.deleteOrder(order);
+		}else if(order.getSaleType() == SaleType.BID) {
+			delete= bidOrderService.deleteOrder(order);
+		}
+		return delete;
+	}
+
 }

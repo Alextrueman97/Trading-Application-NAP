@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,8 @@ import com.napgroup.models.Sort;
 import com.napgroup.models.Stocks;
 import com.napgroup.models.UserAccount;
 import com.napgroup.models.UserStock;
+import com.napgroup.services.AskOrdersServiceImpl;
+import com.napgroup.services.BidOrdersServiceImpl;
 import com.napgroup.services.CompanyService;
 import com.napgroup.services.OrderTableSuperService;
 import com.napgroup.services.SortServiceImpl;
@@ -53,6 +56,11 @@ public class StockController {
 	private SortServiceImpl sortServiceImpl;
 	@Autowired
 	private UserAccountService userAccountService;
+	@Autowired
+	private AskOrdersServiceImpl askOrdersServiceImpl;
+	@Autowired
+	private BidOrdersServiceImpl bidOrdersServiceImpl;
+	
 
 	@GetMapping("/Dashboard")
 	public String showAllStocks(Model model) {
@@ -214,5 +222,25 @@ public class StockController {
 
 		return "UserStocks";
 	}
+	
+	@GetMapping("/deleteOrder/{saleType}/{orderId}")
+	public String deleteOrder(@PathVariable("saleType") SaleType saleType, @PathVariable("orderId") int orderId, Model model, @AuthenticationPrincipal MyUserDetails user) {
+		
+		int delete = 0;
+		if(saleType == SaleType.ASK) {
+			OrderTableSuper order = askOrdersServiceImpl.findOrderById(orderId);
+			delete = askOrdersServiceImpl.deleteOrder(order);
+		}else if(saleType == SaleType.BID) {
+			OrderTableSuper order = bidOrdersServiceImpl.findOrderById(orderId);
+			delete = bidOrdersServiceImpl.deleteOrder(order);
+		}
+		if(delete > 0) {
+			return "redirect:/History";
+		}else {
+			model.addAttribute("error", "Unable to proccess your request");
+			return viewHistory(model, user);
+		}
+	}
+	
 
 }

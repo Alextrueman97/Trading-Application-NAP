@@ -45,4 +45,8 @@ public interface AskOrdersRepository extends JpaRepository<AskOrders, Integer> {
 	@Modifying(clearAutomatically = true)
 	public int updateStockPrice(@Param("orderId") int orderId, @Param("salePrice") double salePrice);
 
+	@Query(value = "delete from AskOrders a where a.orderId = :orderId")
+	@Transactional
+	@Modifying
+	public int deleteAskOrder(@Param("orderId") int orderId);
 }

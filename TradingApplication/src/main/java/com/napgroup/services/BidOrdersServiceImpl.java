@@ -78,4 +78,9 @@ public class BidOrdersServiceImpl implements BidOrderService {
 		return (OrderTableSuper) bidOrdersRepository.findById(orderId).get();
 	}
 
+	@Override
+	public int deleteOrder(OrderTableSuper orderId) {
+		return bidOrdersRepository.deleteBidOrder(orderId.getOrderId());
+	}
+
 }

@@ -17,7 +17,7 @@ public class ExternalBankingServiceImpl implements ExternalBankingService {
 	
 	@Override
 	public HttpStatus login(String phoneNo, String pass, long accountNo) {
-		String url = "http://localhost:8082/api/external-banking";
+		String url = "http://localhost:8084/api/external-banking";
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
 		JSONObject loginObject = new JSONObject();
@@ -31,7 +31,7 @@ public class ExternalBankingServiceImpl implements ExternalBankingService {
 
 	@Override
 	public HttpStatus withdraw(String phoneNo, String pass, long accountNo, double amount) {
-		String url = "http://localhost:8082/api/external-banking/withdraw";
+		String url = "http://localhost:8084/api/external-banking/withdraw";
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
 		JSONObject loginObject = new JSONObject();

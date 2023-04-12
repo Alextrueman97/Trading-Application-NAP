@@ -22,7 +22,7 @@ public class UserAccount {
 	private String username; 	//unique
 	@Column(name = "email_address", unique = true, columnDefinition = "VARCHAR(50)")
 	private String emailAddress; //unique
-	@Column(name = "password", columnDefinition = "VARCHAR(25)")
+	@Column(name = "password", columnDefinition = "VARCHAR(65)")
 	private String password;
 	@Column(name = "first_name", columnDefinition = "VARCHAR(25)")
 	private String firstName;

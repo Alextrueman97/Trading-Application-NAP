@@ -13,7 +13,8 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
 
-	UserAccount findByUsername(String username);
+	@Query(value = "select new UserAccount(ua.accountId, ua.username, ua.emailAddress, ua.password, ua.firstName, ua.lastName, ua.balance) from UserAccount ua where ua.username = :username")
+	public UserAccount findByUsername(@Param("username") String username);
 	
 	UserAccount findByEmailAddress(String emailAddress);
 	

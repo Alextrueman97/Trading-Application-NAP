@@ -98,7 +98,8 @@
                     I accept the <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>
                 </label>
             </div>
-            <input type="submit" style="background-color:#0047AB; width: -webkit-fill-available;" class="btn btn-success btn-block py-2" name="" value="Submit">
+            <input type="submit" style="width: -webkit-fill-available;" class="btn btn-success btn-block py-2" name="" value="Submit">
+        	<div th:text="${error}" style="color:red;"></div>
         </form>
     </div>
 </body>

@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements MyUserDetailsService {
 	public void register(UserData user) throws UserAlreadyExistsException {
 
 		// Let's check if user already registered with us
-		if (checkIfUserExist(user.getUsername())) {
+		if (checkIfUserExist(user.getEmailAddress())) {
 			throw new UserAlreadyExistsException("User already exists for this username");
 		}
 		UserAccount userEntity = new UserAccount();
@@ -43,8 +43,8 @@ public class UserDetailsServiceImpl implements MyUserDetailsService {
 		userAccountRepository.save(userEntity);
 	}
 
-	public boolean checkIfUserExist(String username) {
-		return userAccountRepository.findByUsername(username) != null ? true : false;
+	public boolean checkIfUserExist(String emailAddress) {
+		return userAccountRepository.findByEmailAddress(emailAddress) != null ? true : false;
 	}
 
 	private void encodePassword(UserAccount userEntity, UserData user) {

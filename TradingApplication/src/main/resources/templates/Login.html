@@ -68,10 +68,6 @@
     <div class="d-flex flex-row justify-content-center">
         <form th:action="@{/login}" method="POST" class="form-login d-flex flex-column justify-content-center" style="width:50vw;">
             <h1 class="display-3 text-center">Login</h1>
-	            	<div th:if="${param.error}">
-						Invalid username and password.</div>
-					<div th:if="${param.logout}">
-						You have been logged out.</div>
                     <div class="py-2 form-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">
                     </div>
@@ -84,9 +80,12 @@
                             I am not a robot!
                         </label>
                     </div>
+                    <div th:if="${param.error}" style="color:red;">
+						Invalid username and password.</div>
+					<div th:if="${param.logout}" style="color:red;">
+						You have been logged out.</div>
                     <input type="submit" style="width: -webkit-fill-available;"
-                    class="btn btn-success btn-block" name="" value="Login">
-            
+                    class="btn btn-success btn-block" name="" value="Login">  
         </form>
     </div>
 

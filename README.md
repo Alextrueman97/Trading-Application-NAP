@@ -22,3 +22,6 @@ To run this project:
 
 NOTE: This project is originally intended to be run as a microservice using Eureka Services with an additional Banking Application microservice to allow users to withdraw money.
 - This has been disabled to allow users to run the application so withdraw money functionality isn't active
+
+Video Demo
+-------------------------------------------------------------------------------------

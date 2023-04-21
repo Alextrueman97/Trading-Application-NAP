@@ -25,3 +25,4 @@ NOTE: This project is originally intended to be run as a microservice using Eure
 
 Video Demo
 -------------------------------------------------------------------------------------
+[![Video Demo of Project](/TradingAppThumbnailImage.png)](https://www.youtube.com/watch?v=yJf1AK1vkyM)
